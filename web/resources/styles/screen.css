@@ -1,0 +1,318 @@
+body {
+	font-family: sans-serif;
+	font-size: 80%;
+	background-color: #aaa;
+}
+
+table {
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-right: 0.5em;
+	padding-left: 0.5em;
+}
+
+table tbody {
+	padding:0;
+}
+
+.accessibility {
+	visibility:hidden;
+	width:0;
+	height:0;
+	position:absolute;
+	left:-999px;
+	top:-999px;
+}
+
+#wrapper {
+	margin: 0pt auto;
+	position: relative;	
+    min-width: 870px;
+	max-width: 1000px;
+}
+
+#header {
+	background-image: url(../img/dots.png);
+	background-repeat: repeat-x;	
+	display: block;
+	border: 1px solid #333366;	
+}
+
+#header h1 {
+	text-indent: -999em;
+	height: 80px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#teaser {
+	float:right;
+	background-image: url(../img/header_right.png);
+	background-position: right;
+	background-repeat:no-repeat;
+	height: 80px;
+	width: 300px;
+	margin-right: 15px
+}
+
+#logo {
+	float:left;
+	background-image: url(../img/header_left.png);
+	background-position: 25px 5px;
+	background-repeat:no-repeat;
+	height: 80px;
+	width: 200px;
+}
+
+#body {
+	border: 1px solid #003366;	
+	background-color: #ffffff;
+}
+
+#navigation {
+	background-color: #003366;
+	height: 1.8em;
+	text-align: right;
+	color: #FFFFFF;
+}
+
+#navigation ul {
+	margin-top: 0;
+	padding-top: 0;
+	text-align: right;
+	list-style: none;
+	padding-right: 0.5em;
+}
+
+#navigation ul li {
+	display: inline;
+}
+
+#navigation ul li a {
+	color: #dddddd;
+	line-height: 1.5em;
+	padding-left: 0.5em;
+	text-decoration: none;
+	border-left: 1px solid #666666;
+}
+
+#play_area {
+	margin-left:29em;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#board {
+	margin: 0px;
+}
+
+#dicearea {
+	float:left;
+	width:120px;
+	height:120px;
+	background-color: #aaa;
+	font-size: 1.5em;
+	font-family: sans-serif;
+	text-align: center;
+	margin-left: auto;
+	margin-left: auto;
+	display: block;
+}
+
+#board div.fields {
+	float:left;
+	width:550px;
+	height:550px;
+	position:relative;
+}
+#board div.fields ol {
+list-style-type:none;
+}
+
+#board div.fields img {
+	position:absolute;
+	padding:5px;
+}
+#board div.fields br {
+	display:none;
+}
+
+<!-- /* Spielfelder */
+#field1 {top:200px;	left:0px;}
+#field2 {top:200px;	left:50px;}
+#field3 {top:200px;	left:100px;}
+#field4 {top:200px;	left:150px;}
+#field5 {top:200px;	left:200px;}
+#field6 {top:150px;	left:200px;}
+#field7 {top:100px;	left:200px;}
+#field8 {top:50px;	left:200px;}
+#field9 {top:0px;	left:200px;}
+#field10 {top:0px;	left:250px;}
+#field11 {top:0px;	left:300px;}
+#field12 {top:50px;	left:300px;}
+#field13 {top:100px;	left:300px;}
+#field14 {top:150px;	left:300px;}
+#field15 {top:200px;	left:300px;}
+#field16 {top:200px;	left:350px;}
+#field17 {top:200px;	left:400px;}
+#field18 {top:200px;	left:450px;}
+#field19 {top:200px;	left:500px;}
+#field20 {top:250px;	left:500px;}
+#field21 {top:300px;	left:500px;}
+#field22 {top:300px;	left:450px;}
+#field23 {top:300px;	left:400px;}
+#field24 {top:300px;	left:350px;}
+#field25 {top:300px;	left:300px;}
+#field26 {top:350px;	left:300px;}
+#field27 {top:400px;	left:300px;}
+#field28 {top:450px;	left:300px;}
+#field29 {top:500px;	left:300px;}
+#field30 {top:500px;	left:250px;}
+#field31 {top:500px;	left:200px;}
+#field32 {top:450px;	left:200px;}
+#field33 {top:400px;	left:200px;}
+#field34 {top:350px;	left:200px;}
+#field35 {top:300px;	left:200px;}
+#field36 {top:300px;	left:150px;}
+#field37 {top:300px;	left:100px;}
+#field38 {top:300px;	left:50px;}
+#field39 {top:300px;	left:0px;}
+#field40 {top:250px;	left:0px;}
+
+
+<!-- /* Starthaeuser */
+#field41 {top:0px;	left:0px;}
+#field42 {top:0px;	left:50px;}
+#field43 {top:50px;	left:0px;}
+#field44 {top:50px;	left:50px;}
+#field45 {top:0px;	left:450px;}
+#field46 {top:0px;	left:500px;}
+#field47 {top:50px;	left:450px;}
+#field48 {top:50px;	left:500px;}
+#field49 {top:450px;	left:450px;}
+#field50 {top:450px;	left:500px;}
+#field51 {top:500px;	left:450px;}
+#field52 {top:500px;	left:500px;}
+#field53 {top:450px;	left:0px;}
+#field54 {top:450px;	left:50px;}
+#field55 {top:500px;	left:0px;}
+#field56 {top:500px;	left:50px;}
+
+<!-- /* Zielhaeuser */
+#field57 {top:250px;	left:50px;}
+#field58 {top:250px;	left:100px;}
+#field59 {top:250px;	left:150px;}
+#field60 {top:250px;	left:200px;}
+#field61 {top:50px;	left:250px;}
+#field62 {top:100px;	left:250px;}
+#field63 {top:150px;	left:250px;}
+#field64 {top:200px;	left:250px;}
+#field65 {top:250px;	left:450px;}
+#field66 {top:250px;	left:400px;}
+#field67 {top:250px;	left:350px;}
+#field68 {top:250px;	left:300px;}
+#field69 {top:450px;	left:250px;}
+#field70 {top:400px;	left:250px;}
+#field71 {top:350px;	left:250px;}
+#field72 {top:300px;	left:250px;}
+
+#info_area {	
+	background-color: #003366;
+	float: left;
+	color: white;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-bottom: 0.5em;
+	font-size: 90%;	
+}
+
+#info_area h2 {
+	color: #f29400;
+	margin-bottom: 0em;
+}
+
+#info_area table.game_info {
+	padding-left: 0em;
+}
+
+#info_area table.game_info th {
+	text-align: left;
+	color: #f29400;
+	padding-right: 0.5em;
+}
+
+#footer {
+	text-align: right;
+	font-size: 0.8em;
+	font-family: sans-serif;
+}
+
+
+#main {
+	padding:10px;
+}
+
+#main h2, #main h3 {
+	color: #f29400;
+}
+
+fieldset {
+	border: none;
+}
+
+#buttons {
+	margin-top: 1em;
+}
+
+.formblock #buttons {
+	margin-top: 2em;
+	margin-bottom: 1em;
+	width: 21.2em;
+	text-align: right;
+}
+
+
+.formblock form {
+	display:block;
+	overflow: auto;
+}
+
+.formblock label {
+	float:left;
+	display:block;
+	width: 9em;
+	margin: 0.5em 0 0.5em 0;
+	clear:both;
+}
+
+.formblock input, textarea, select {
+	float:left;
+	display:block;
+	margin: 0.2em 0 0.2em 0;
+}
+
+.formblock input[type=submit] {
+	float:right;
+}
+
+.formblock fieldset {
+	clear:both;
+	display:block;
+	border:0;
+}
+
+.clearer {
+	clear:both;
+}
+
+#infogegner {
+	background-color: #aaa;
+	font-size: 1.2em;
+	font-family: sans-serif;
+	padding: 3px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-right: 5px;
+	width: 500px;
+}
