@@ -6,40 +6,41 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="resources/styles/screen.css"/>
-        <title>Facelets Template</title>
+        <meta name="description" content="Das EWA Mensch &auml;rgere Dich nicht, ein Spa&szlig; der niemals endet."/>
+        <meta name="keywords" content="Spiel EWA Mensch &auml;rgere Dich nicht"/>
+        <meta name="language" content="de-AT"/>
+        <link rel="stylesheet" type="text/css" href="./resources/styles/screen.css" />
+        <title><ui:define name="title">EWA Mensch &auml;rgere Dich nicht</ui:define></title>
     </h:head>
 
     <h:body>
         
         <div id="wrapper">
-			<div id="header">
-				<div id="teaser"></div>
-				<div id="logo"></div>
-				<h1>EWA Memory</h1>
-			</div>
-                        
-                      
-        <div id="body">
-             <div id="navigation">
-             <ul>
-             <li>
-             <ui:insert name="menu">Menu</ui:insert>
-             </li>
-             </ul>
-             </div>
-        </div>
-          
-                      
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
+            <div id="header">
+                    <div id="teaser"></div>
+                    <div id="logo"></div>
+                    <h1>EWA Mensch &auml;rgere Dich nicht</h1>
+            </div>
+            <ul class="accessibility">
+                <ui:insert name="accessabilitymenu">Accesssibilitymenu</ui:insert>
+            </ul>
+            <div id="body">
+                <div id="navigation">
+                    <h2 class="accessibility">Navigation</h2>
+                    <ul>
+                        <ui:insert name="menu">Menu</ui:insert>
+                    </ul>
+                </div>
+                <hr class="accessibility" />
 
-                        <div id="footer">
-                               <p>&copy; 2012 EWA Mensch ärgere Dich nicht.</p>
-                        </div>
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+
+            <div id="footer">
+                    <p>&copy; 2012 EWA Mensch ärgere Dich nicht.</p>
+            </div>
         </div>
     </h:body>
 
