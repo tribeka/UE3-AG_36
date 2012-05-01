@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.ListDataModel;
 
 /**
  * Class representing a Mensch aergere Dich nicht game
@@ -108,6 +109,62 @@ public class Game {
         boardFields = new ArrayList<Field>();
         for (int i = 0; i < 72; ++i) {
             Field f = new Field();
+            f.setIndex(i+1);
+            switch(i) {
+                case 0: f.setImg("img/field1");
+                        f.setText("Feld 1: erstes Feld Spieler 1");
+                        break;
+                case 9: f.setImg("img/field");
+                        f.setText("Feld 10: letztes Feld Spieler 2");
+                        break;
+                case 10: f.setImg("img/field2");
+                        f.setText("Feld 11: erstes Feld Spieler 2");
+                        break;
+                case 19: f.setImg("img/field");
+                        f.setText("Feld 20: letztes Feld Spieler 3");
+                        break;
+                case 20: f.setImg("img/field3");
+                        f.setText("Feld 21: erstes Feld Spieler 3");
+                        break;
+                case 29: f.setImg("img/field");
+                        f.setText("Feld 30: letztes Feld Spieler 4");
+                        break;
+                case 30: f.setImg("img/field4");
+                        f.setText("Feld 31: erstes Feld Spieler 4");
+                        break;
+                case 39: f.setImg("img/field");
+                        f.setText("Feld 40: letztes Feld Spieler 1");
+                        break;
+                default:
+                    if(i < 40) {
+                        f.setImg("img/field");
+                        f.setText("Feld "+ (i+1));
+                    } else if (i < 44) {
+                        f.setImg("img/field1");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 1");
+                    } else if (i < 48) {
+                        f.setImg("img/field2");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 2");
+                    } else if (i < 52) {
+                        f.setImg("img/field3");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 3");
+                    } else if (i < 56) {
+                        f.setImg("img/field4");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 4");
+                    } else if (i < 60) {
+                        f.setImg("img/field1");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 1");
+                    } else if (i < 64) {
+                        f.setImg("img/field2");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 2");
+                    } else if (i < 68) {
+                        f.setImg("img/field3");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 3");
+                    } else if (i < 72) {
+                        f.setImg("img/field4");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 4");
+                    }
+            }
             boardFields.add(f);
         }
         boardFields.get(routeplayer1.get(0) - 1).setOccupyingPlayer(1);
@@ -135,6 +192,62 @@ public class Game {
         boardFields = new ArrayList<Field>();
         for (int i = 0; i < 72; ++i) {
             Field f = new Field();
+            f.setIndex(i+1);
+            switch(i) {
+                case 0: f.setImg("img/field1");
+                        f.setText("Feld 1: erstes Feld Spieler 1");
+                        break;
+                case 9: f.setImg("img/field");
+                        f.setText("Feld 10: letztes Feld Spieler 2");
+                        break;
+                case 10: f.setImg("img/field2");
+                        f.setText("Feld 11: erstes Feld Spieler 2");
+                        break;
+                case 19: f.setImg("img/field");
+                        f.setText("Feld 20: letztes Feld Spieler 3");
+                        break;
+                case 20: f.setImg("img/field3");
+                        f.setText("Feld 21: erstes Feld Spieler 3");
+                        break;
+                case 29: f.setImg("img/field");
+                        f.setText("Feld 30: letztes Feld Spieler 4");
+                        break;
+                case 30: f.setImg("img/field4");
+                        f.setText("Feld 31: erstes Feld Spieler 4");
+                        break;
+                case 39: f.setImg("img/field");
+                        f.setText("Feld 40: letztes Feld Spieler 1");
+                        break;
+                default:
+                    if(i < 40) {
+                        f.setImg("img/field");
+                        f.setText("Feld "+ (i+1));
+                    } else if (i < 44) {
+                        f.setImg("img/field1");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 1");
+                    } else if (i < 48) {
+                        f.setImg("img/field2");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 2");
+                    } else if (i < 52) {
+                        f.setImg("img/field3");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 3");
+                    } else if (i < 56) {
+                        f.setImg("img/field4");
+                        f.setText("Feld "+(i+1)+": Startfeld Spieler 4");
+                    } else if (i < 60) {
+                        f.setImg("img/field1");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 1");
+                    } else if (i < 64) {
+                        f.setImg("img/field2");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 2");
+                    } else if (i < 68) {
+                        f.setImg("img/field3");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 3");
+                    } else if (i < 72) {
+                        f.setImg("img/field4");
+                        f.setText("Feld "+(i+1)+": Zielfeld Spieler 4");
+                    }
+            }
             boardFields.add(f);
         }
         boardFields.get(routeplayer1.get(0) - 1).setOccupyingPlayer(1);
@@ -367,6 +480,11 @@ public class Game {
      */
     public List<Field> getBoardFields() {
         return this.boardFields;
+    }
+
+
+    public int getBoardFieldsCnt() {
+        return this.boardFields.size();
     }
 
     /**
