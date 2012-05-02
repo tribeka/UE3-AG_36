@@ -5,7 +5,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xml:lang="de" lang="de">
+      xml:lang="de" lang="de"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="title">
@@ -25,7 +26,7 @@
             </ui:define>
 
             <ui:define name="content">
-                <div id="info_area">
+                <h:panelGroup id="info_area" layout="block">
                     <h2>Spielinformationen</h2>
                     <table class="game_info" summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
                         <tbody>
@@ -67,15 +68,22 @@
                             </ui:repeat>
                         </tbody>
                     </table>
-                </div>
+                </h:panelGroup>
                 <div id="dicearea">
                     <hr class="accessibility" />
                     <h2 class="accessibility">W&uuml;rfel</h2>
-                    <span title='aktueller Spieler'><h:outputText value="#{game.currentPlayer.name}" /></span>
-                    <h:graphicImage id="Grafik" url="img/wuerfel1.png"
-                                    alt="W&uuml;rfel Zahl 1" title="W&uuml;rfel Zahl 1" />
+                    <span title='aktueller Spieler'><h:outputText id="test12" value="#{game.currentPlayer.name}" /></span>
+                    <h:form id="diceform" action="#{game.fullRound}">
+                        <h:commandButton id="rolldice"
+                                         image="#{game.currentPlayer.diceScoreImg}" alt="#{game.currentPlayer.diceScoreText}"
+                                         title="#{game.currentPlayer.diceScoreText}">
+                            <f:ajax render=":play_area"/>
+                            <f:ajax render="diceform"/>
+                            <f:ajax render=":info_area"/>
+                        </h:commandButton>
+                    </h:form>
                 </div>
-                <div id="play_area">
+                <h:panelGroup layout="block" id="play_area">
                     <hr class="accessibility" />
                     <div id="board">
                         <h2 class="accessibility">Spielbrett</h2>
@@ -175,9 +183,14 @@
                             </ol>
                         </div>
                         <div class="clearer"></div>  
-                        <div id="infogegner">W&uuml;rfelergebnis Computer: 3 TODO</div>
+                        <h:panelGroup layout="block" id="infogegner" rendered="#{game.opponentScore}">
+                            W&uuml;rfelergebnis Computer: 
+                            <ui:repeat var="score" value="#{game.opponentScore}">
+                                <h:outputText vale="#{score} "/>
+                            </ui:repeat>
+                        </h:panelGroup>
                     </div>
-                </div>	
+                </h:panelGroup>	
             </ui:define>
         </ui:composition>
 

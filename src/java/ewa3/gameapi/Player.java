@@ -21,6 +21,11 @@ public class Player {
          * The current position of the user's counter
          */
         private int position;
+        
+        /**
+         * stores last dice score
+         */
+        private String diceScore;
        
         /**
          * Sequence of fields in the game the player has to cover
@@ -35,6 +40,7 @@ public class Player {
 	public Player(String name) {
 		super();
 		this.name = name;
+                diceScore = "";
 	}
 
 	/**
@@ -80,5 +86,21 @@ public class Player {
          */
         public void setRoute(List<Integer> route) {
             this.route = route;
+        }
+        
+        public String getDiceScore() {
+            return diceScore;
+        }
+        
+        public void setDiceScore(Integer i) {
+            diceScore = i.toString();
+        }
+        
+        public String getDiceScoreImg() {
+            return "img/wuerfel" + diceScore + ".png";
+        }
+        
+        public String getDiceScoreText() {
+            return "W&uuml;rfel Zahl " + diceScore;
         }
 }

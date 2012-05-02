@@ -330,6 +330,11 @@ public class Game {
     public Player getLeader() {
         return this.leader;
     }
+    
+    public String getFullRound() {
+        rollthedice(currentplayer);
+        return "";
+    }
 
     /**
      * Rolls the dice for the given player and updates the position of the
@@ -350,6 +355,7 @@ public class Game {
         }
 
         int score = dice.roll();
+        player.setDiceScore(score);
 
         List<Integer> route = player.getRoute();
         int position = player.getPosition();
