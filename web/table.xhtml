@@ -73,8 +73,8 @@
                     <hr class="accessibility" />
                     <h2 class="accessibility">W&uuml;rfel</h2>
                     <span title='aktueller Spieler'><h:outputText id="test12" value="#{game.currentPlayer.name}" /></span>
-                    <h:form id="diceform" action="#{game.fullRound}">
-                        <h:commandButton id="rolldice"
+                    <h:form id="diceform">
+                        <h:commandButton id="rolldice" action="#{game.rollDice}"
                                          image="#{game.currentPlayer.diceScoreImg}" alt="#{game.currentPlayer.diceScoreText}"
                                          title="#{game.currentPlayer.diceScoreText}">
                             <f:ajax render=":play_area"/>

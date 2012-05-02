@@ -40,7 +40,7 @@ public class Player {
 	public Player(String name) {
 		super();
 		this.name = name;
-                diceScore = "";
+                diceScore = "0";
 	}
 
 	/**

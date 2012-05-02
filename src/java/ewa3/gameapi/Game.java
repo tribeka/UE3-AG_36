@@ -331,7 +331,7 @@ public class Game {
         return this.leader;
     }
     
-    public String getFullRound() {
+    public String rollDice() {
         rollthedice(currentplayer);
         return "";
     }
