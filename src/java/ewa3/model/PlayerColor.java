@@ -1,4 +1,4 @@
-package ewa3.model;
+package model;
 
 
 public enum PlayerColor {

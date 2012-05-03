@@ -2,23 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ewa3.util;
+package util;
 
-import ewa3.model.Feld;
-import ewa3.model.PlayerColor;
-import ewa3.model.Spielfeld;
+import model.Feld;
+import model.PlayerColor;
+import model.Spielfeld;
 
 /**
  *
  * @author bernhard
  */
 public class SpielUtil {
-    public static int wuerfle() {
-        double zufall;
-        zufall = Math.random();
-        zufall = zufall * 6 + 0.5;
-        return (int) Math.round(zufall);
-    }
+
     
     public String PlayerColorToNumber(PlayerColor col) {
         if(col.equals(PlayerColor.Yellow))

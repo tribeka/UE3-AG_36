@@ -1,4 +1,4 @@
-package ewa3.model;
+package model;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -334,12 +334,7 @@ class SpielfeldImpl implements Spielfeld {
         }
 
         public boolean hasNext() {
-           if(next == null)
-               return false;
-           if(started && next == first)
-               return false;
-           
-           return true;
+            return next != null && !(started && next == first);
         }
 
         public Feld next() {
