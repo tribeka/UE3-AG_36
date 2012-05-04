@@ -21,7 +21,6 @@ class SpielfeldImpl implements Spielfeld {
 
     EnumMap<PlayerColor, FeldImpl> FirstFields;
 
-
     // Erstellt ein neues Spielfeld. Erster Spieler ist gelb, zweiter grün, dritter rot, vierter blau.
     public SpielfeldImpl(List<Spieler> players) {
         if (players == null || players.size() < 2)

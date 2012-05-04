@@ -18,6 +18,10 @@ public class Spiel implements Serializable {
     private Boolean Over;
 
     public Spiel(Spieler player) {
+
+        Players = new ArrayList<Spieler>();
+        LastDies = new HashMap<Spieler, LinkedList<Integer>>();
+
         Players.add(player);
         Players.add(new Spieler("Computer"));
 
