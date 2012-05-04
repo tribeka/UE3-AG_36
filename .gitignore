@@ -1,1 +1,5 @@
-/nbproject/
+/build
+/nbproject
+/out
+/.idea
+*.iml

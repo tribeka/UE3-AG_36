@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xml:lang="de" lang="de"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="title">
+                EWA Mensch &auml;rgere Dich nicht :: Registrierung
+            </ui:define>
+        
+            <ui:define name="accheader">
+                EWA Memory
+            </ui:define>
+            
+            <ui:define name="accessibilitymenu">
+                <li><a href="#navigation" accesskey="1">Navigation</a></li>
+                <li><a href="#main" accesskey="0">Registrierungs-Formular</a></li>
+            </ui:define>
+
+            <ui:define name="menu">
+                <li><a href="#">Zur&uuml;ck zur Lounge</a></li>
+            </ui:define>            
+            
+            <ui:define name="content">
+                <div id="main">
+                    <h2>Registrieren</h2>
+                    <p>Bitte f&uuml;llen Sie das untenstehende Formular aus!</p>
+				
+                    <h:form id="sendeRegistrierung">
+			<h3><span xml:lang="en">Login</span> Daten </h3>
+                        <div class="formblock">
+                            <fieldset>
+                                <div>
+                                    <label class="Float" for="username">Username</label>
+                                    <input type="text" id="username" name="username" />
+				</div>
+
+				<div>
+                                    <label class="Float" for="password">Passwort</label>
+                                    <input type="password" id="password" name="password" />
+				</div>
+                            </fieldset>
+			</div>
+                        
+                        <h:selectBooleanCheckbox onclick="this.form.submit()"
+                                                 value="#{register.displaypersonal}"
+                                                 immediate="true"
+                                                 valueChangeListener="#{register.displayChanged}"/>
+                        
+                        
+                        <h3 rendered="#{register.displaypersonal}">Pers&ouml;nliche Daten</h3>
+                        <div class="formblock" rendered="#{register.displaypersonal}">
+                            <fieldset>
+                                <div>
+                                    <h:outputLabel value="#{msg.firstname} " for="firstname" />
+                                    <h:inputText id="firstname" value="#{register.player.firstName}" 
+                                                 required="false"
+                                                 label="#{msg.firstname}">
+                                        <f:validateLength minimum="3" />
+                                    </h:inputText>
+				</div>
+				<div>
+                                    <h:outputLabel value="#{msg.lastname} " for="lastname" rendered="#{register.displaypersonal}" />
+                                    <h:inputText id="lastname" value="#{register.player.lastName}" 
+                                                 required="false"
+                                                 label="#{msg.lastname}">
+                                        <f:validateLength minimum="3" />
+                                    </h:inputText>
+				</div>
+                                <div>
+                                    <h:outputLabel value="#{msg.dateofbirth} " for="dateofbirth" />
+                                    <h:inputText id="dateofbirth" value="#{register.player.dateOfBirth}" 
+                                                 required="false"
+                                                 validator="#{register.validateGeburtsdatum}" 
+                                                 label="#{msg.dateofbirth}">
+                                        <f:validateLength minimum="10" maximum="10"/>
+                                    </h:inputText>
+				</div>
+                                <div>
+                                    <h:outputLabel value="#{msg.sex} " for="sex" />
+                                    <h:selectOneListbox id="sex" label="#{msg.sex}">
+                                        <f:selectItem id="sex1" itemLabel="weiblich" itemValue="0" />
+                                        <f:selectItem id="sex2" itemLabel="m&auml;nnlich" itemValue="1" />
+                                    </h:selectOneListbox>
+				</div>
+                            </fieldset>
+			</div>
+			<div id="buttons">
+                            <h:commandButton id="register" value="Registrieren" action="#{register.register}" accesskey="r" />
+			</div>
+                    </h:form>
+                </div>                
+            </ui:define>
+        </ui:composition>   
+    </h:body>
+
+</html>

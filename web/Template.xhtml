@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Das EWA Mensch &auml;rgere Dich nicht, ein Spa&szlig; der niemals endet."/>
+        <meta name="keywords" content="Spiel EWA Mensch &auml;rgere Dich nicht"/>
+        <meta name="language" content="de-AT"/>
+        <link rel="stylesheet" type="text/css" href="./resources/styles/screen.css" />
+        <title><ui:define name="title">EWA Mensch &auml;rgere Dich nicht</ui:define></title>
+    </h:head>
+
+    <h:body>
+        
+        <div id="wrapper">
+            <div id="header">
+                    <div id="teaser"></div>
+                    <div id="logo"></div>
+                    <h1>
+                        <ui:insert name="accheader">EWA Mensch &auml;rgere Dich nicht</ui:insert>
+                    </h1>
+            </div>
+            <ul class="accessibility">
+                <ui:insert name="accessabilitymenu">Accesssibilitymenu</ui:insert>
+            </ul>
+            <div id="body">
+                <div id="navigation">
+                    <h2 class="accessibility">Navigation</h2>
+                    <ul>
+                        <ui:insert name="menu">Menu</ui:insert>
+                    </ul>
+                </div>
+                <hr class="accessibility" />
+
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+
+            <div id="footer">
+                    <p>&copy; 2012 EWA Mensch ärgere Dich nicht.</p>
+            </div>
+        </div>
+    </h:body>
+
+</html>
