@@ -4,36 +4,38 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.beans.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Iterator;
+import java.util.*;
 
-@ManagedBean(name="mygame")
+@ManagedBean(name = "mygame")
 @SessionScoped
 public class Spiel implements Serializable {
-    public List<Spieler> Player;
+    public List<Spieler> Players;
     public Spielfeld Playarea;
+    public HashMap<Spieler, LinkedList<Integer>> LastDies;
 
     private Integer Round;
     private long Starttime;
     private Boolean Over;
 
-    /*TODO:
-    * parameterlose funktionen für text -> feld.getID (fieldXX), feld.getString(), feld.getImgString()
-    * liste statt iteratoren
-    */
     public Spiel(Spieler player) {
-        Player.add(player);
-        Player.add(new Spieler("Computer"));
+        Players.add(player);
+        Players.add(new Spieler("Computer"));
+
+        for (Spieler s : Players)
+            LastDies.put(s, new LinkedList<Integer>());
+
 
         this.reset();
     }
 
     public void reset() {
-        Playarea = new SpielfeldImpl(Player);
+        Playarea = new SpielfeldImpl(Players);
         Round = 0;
         Over = false;
         Starttime = new Date().getTime();
+        for (Spieler s : Players)
+            LastDies.get(s).clear();
+
     }
 
     public Boolean isOver() {
@@ -41,7 +43,7 @@ public class Spiel implements Serializable {
     }
 
     public Spieler getLeader() {
-        Iterator<Spieler> it = Player.iterator();
+        Iterator<Spieler> it = Players.iterator();
         Spieler plyr = null, tmpplyr;
         Integer dist = 100, temp; //greater than max distance
         do {
@@ -55,8 +57,8 @@ public class Spiel implements Serializable {
         return plyr;
     }
 
-    public int getPlayerCnt() {
-        return Player.size();
+    public int getPlayersCnt() {
+        return Players.size();
     }
 
     public String getTime() {
@@ -70,15 +72,18 @@ public class Spiel implements Serializable {
     }
 
     public String doRound() {
-        Spieler humanPlayer = Player.get(0);
-        Spieler computerPlayer = Player.get(1);
+        Spieler humanPlayer = Players.get(0);
+        Spieler computerPlayer = Players.get(1);
+
+        for (Spieler s : Players)
+            LastDies.get(s).clear();
 
         // wuerfeln
         int wurf = wuerfle();
 
         // spielzug
         this.spielzug(humanPlayer, wurf);
-        humanPlayer.LastDies.offer(wurf);
+        LastDies.get(humanPlayer).offer(wurf);
 
         // if wuerfel == 6, zurueck zur view, da Spieler nochmals an der Reihe ist
         if ((wurf != 6) && (!this.isOver())) {
@@ -90,7 +95,7 @@ public class Spiel implements Serializable {
                 this.spielzug(computerPlayer, wurf);
 
                 // if wuerfel == 6, nochmals
-                computerPlayer.LastDies.offer(wurf);
+                LastDies.get(computerPlayer).offer(wurf);
             } while ((wurf == 6) && (!this.isOver()));
 
             // neue Runde - zurueck zur view
@@ -131,4 +136,23 @@ public class Spiel implements Serializable {
             this.Over = true;
         }
     }
+
+    public List<Integer> getPlayer1DiceRolls() throws Exception {
+        if (Players.size() < 1)
+            throw new Exception("Invalid player");
+
+        Spieler s = Players.get(0);
+
+        return LastDies.get(s);
+    }
+
+    public List<Integer> getPlayer2DiceRolls() throws Exception {
+        if (Players.size() < 2)
+            throw new Exception("Invalid player");
+
+        Spieler s = Players.get(1);
+
+        return LastDies.get(s);
+    }
+
 }

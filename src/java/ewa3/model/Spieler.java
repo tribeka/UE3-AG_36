@@ -1,27 +1,32 @@
 package model;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import java.beans.*;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+@ManagedBean
+@ApplicationScoped
 public class Spieler implements Serializable {
-    
+
     private String Name;
-    
-    public LinkedList<Integer> LastDies;
-    
+
+
     public Spieler() {
         Name = "";
-        LastDies = new LinkedList<Integer>();
     }
-    
-    
+
+
     public Spieler(String nm) {
         Name = nm;
-        LastDies = new LinkedList<Integer>();
     }
-    
-    public String getName() { return Name; }
-    
-    public void setName(String value) { Name = value; }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String value) {
+        Name = value;
+    }
 }
