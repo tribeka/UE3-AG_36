@@ -33,6 +33,11 @@ public class Player {
         private List<Integer> route;
         
         /**
+         * Password
+         */
+        private String password;
+        
+        /**
          * Personal data - firstname, lastname, dateofbirth, gender
          */
         private String firstName;
@@ -173,5 +178,19 @@ public class Player {
      */
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -4,7 +4,6 @@
  */
 package controller;
 
-import gameapi.Player;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,6 +12,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
+import model.Spieler;
 
 /**
  *
@@ -21,8 +21,8 @@ import javax.faces.validator.ValidatorException;
 @ManagedBean(name="register")
 @SessionScoped
 public class RegisterCtrl {
-    @ManagedProperty(value="#{player}")
-    Player player;
+    @ManagedProperty(value="#{spieler}")
+    Spieler player;
     @ManagedProperty(value = "true")
     private boolean displaypersonal;    
 
@@ -31,11 +31,11 @@ public class RegisterCtrl {
     }
 
     //Getter and Setter
-    public Player getPlayer() {
+    public Spieler getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(Spieler player) {
         this.player = player;
     }
     

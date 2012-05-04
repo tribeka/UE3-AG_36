@@ -35,28 +35,37 @@
                     <h:form id="sendeRegistrierung">
 			<h3><span xml:lang="en">Login</span> Daten </h3>
                         <div class="formblock">
-                            <fieldset>
+                            <h:panelGrid columns="2">
                                 <div>
-                                    <label class="Float" for="username">Username</label>
-                                    <input type="text" id="username" name="username" />
+                                    <h:outputLabel value="#{msg.username} " for="username" />
+                                    <h:inputText id="username" value="#{register.player.name}" 
+                                                 required="true"
+                                                 label="#{msg.username}">
+                                        <f:validateLength minimum="3" />
+                                    </h:inputText>
 				</div>
 
 				<div>
-                                    <label class="Float" for="password">Passwort</label>
-                                    <input type="password" id="password" name="password" />
-				</div>
-                            </fieldset>
+                                    <h:outputLabel value="#{msg.password} " for="password" />
+                                    <h:inputSecret id="password" value="#{register.player.password}" 
+                                                 required="true"
+                                                 label="#{msg.password}">
+                                        <f:validateLength minimum="3" />
+                                    </h:inputSecret>
+            			</div>
+                            </h:panelGrid>
 			</div>
                         
-                        <h:selectBooleanCheckbox onclick="this.form.submit()"
+                        <h:selectBooleanCheckbox id="displaypersonal"
+                                                 onclick="this.form.submit()"
                                                  value="#{register.displaypersonal}"
                                                  immediate="true"
                                                  valueChangeListener="#{register.displayChanged}"/>
+                        <h:outputLabel for="displaypersonal" value="#{msg.displaypersonal}" />
                         
-                        
-                        <h3 rendered="#{register.displaypersonal}">Pers&ouml;nliche Daten</h3>
-                        <div class="formblock" rendered="#{register.displaypersonal}">
-                            <fieldset>
+                        <h3>Pers&ouml;nliche Daten</h3>
+                        <div class="formblock">
+                            <h:panelGrid columns="2" rendered="#{register.displaypersonal}">
                                 <div>
                                     <h:outputLabel value="#{msg.firstname} " for="firstname" />
                                     <h:inputText id="firstname" value="#{register.player.firstName}" 
@@ -66,7 +75,7 @@
                                     </h:inputText>
 				</div>
 				<div>
-                                    <h:outputLabel value="#{msg.lastname} " for="lastname" rendered="#{register.displaypersonal}" />
+                                    <h:outputLabel value="#{msg.lastname} " for="lastname" />
                                     <h:inputText id="lastname" value="#{register.player.lastName}" 
                                                  required="false"
                                                  label="#{msg.lastname}">
@@ -89,7 +98,7 @@
                                         <f:selectItem id="sex2" itemLabel="m&auml;nnlich" itemValue="1" />
                                     </h:selectOneListbox>
 				</div>
-                            </fieldset>
+                            </h:panelGrid>
 			</div>
 			<div id="buttons">
                             <h:commandButton id="register" value="Registrieren" action="#{register.register}" accesskey="r" />
