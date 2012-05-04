@@ -314,6 +314,16 @@ class SpielfeldImpl implements Spielfeld {
     }
 
     @Override
+    public List<Feld> getPlayer3StartFields() {
+        return iterateToEnd(StartFields.get(PlayerColor.Red));
+    }
+
+    @Override
+    public List<Feld> getPlayer4StartFields() {
+        return iterateToEnd(StartFields.get(PlayerColor.Blue));
+    }
+
+    @Override
     public List<Feld> getPlayer1FinishFields() {
         return iterateToEnd(FinishFields.get(PlayerColor.Yellow));
     }
@@ -321,6 +331,16 @@ class SpielfeldImpl implements Spielfeld {
     @Override
     public List<Feld> getPlayer2FinishFields() {
         return iterateToEnd(FinishFields.get(PlayerColor.Green));
+    }
+
+    @Override
+    public List<Feld> getPlayer3FinishFields() {
+        return iterateToEnd(FinishFields.get(PlayerColor.Red));
+    }
+
+    @Override
+    public List<Feld> getPlayer4FinishFields() {
+        return iterateToEnd(FinishFields.get(PlayerColor.Blue));
     }
 
     protected int getPlayerNumber(Spieler p) {

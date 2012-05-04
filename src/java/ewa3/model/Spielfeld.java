@@ -38,8 +38,16 @@ public interface Spielfeld extends Serializable {
 
     public List<Feld> getPlayer2StartFields();
 
+    public List<Feld> getPlayer3StartFields();
+
+    public List<Feld> getPlayer4StartFields();
+
 
     public List<Feld> getPlayer1FinishFields();
 
     public List<Feld> getPlayer2FinishFields();
+
+    public List<Feld> getPlayer3FinishFields();
+
+    public List<Feld> getPlayer4FinishFields();
 }
