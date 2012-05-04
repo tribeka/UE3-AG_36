@@ -27,6 +27,13 @@
 
             <ui:define name="content">
                 <h:panelGroup id="info_area" layout="block">
+                    <h:form rendered="#{mygame.over}">
+                        <h:commandButton action="#{mygame.reset()}" value="Restart">
+                            <f:ajax render=":play_area"/>
+                            <f:ajax render=":info_area"/>
+                            <f:ajax render=":dicearea"/>
+                        </h:commandButton>
+                    </h:form>
                     <h2>Spielinformationen</h2>
                     <table class="game_info" summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
                         <tbody>
@@ -36,19 +43,19 @@
                             </tr>
                             <tr>
                                 <th>Anzahl Spieler</th>
-                                <td><h:outputText value="#{game.playersCnt}" /></td>
+                                <td><h:outputText value="#{mygame.playersCnt}" /></td>
                             </tr>
                             <tr>
                                 <th>F&uuml;hrender</th>
-                                <td><h:outputText value="#{game.leader}" /></td>
+                                <td><h:outputText value="#{mygame.leader.name}" /></td>
                             </tr>
                             <tr>
                                 <th>Aktuelle Runde</th>
-                                <td><h:outputText value="#{game.round}" /></td>
+                                <td><h:outputText value="#{mygame.round}" /></td>
                             </tr>
                             <tr>
                                 <th>Zeit</th>
-                                <td><h:outputText value="#{game.spentTimeFormat}" /></td>
+                                <td><h:outputText value="#{mygame.time}" /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -60,7 +67,7 @@
                                 <th>Spielername</th>
                             </tr>
 
-                            <ui:repeat value="#{game.players}" var="plr" varStatus="status">
+                            <ui:repeat value="#{mygame.player}" var="plr" varStatus="status">
                                 <tr>
                                     <th><h:outputText value="Spieler #{status.index +1}" /></th>
                                     <td><h:outputText value="#{plr.name}" /></td>
@@ -69,20 +76,20 @@
                         </tbody>
                     </table>
                 </h:panelGroup>
-                <div id="dicearea">
+                <h:panelGroup id="dicearea" layout="block">
                     <hr class="accessibility" />
                     <h2 class="accessibility">W&uuml;rfel</h2>
-                    <span title='aktueller Spieler'><h:outputText id="test12" value="#{game.currentPlayer.name}" /></span>
+                    <span title='aktueller Spieler'><h:outputText value="#{mygame.humanPlayer.name}" /></span>
                     <h:form id="diceform">
-                        <h:commandButton id="rolldice" action="#{game.rollDice}"
-                                         image="#{game.currentPlayer.diceScoreImg}" alt="#{game.currentPlayer.diceScoreText}"
-                                         title="#{game.currentPlayer.diceScoreText}">
+                        <h:commandButton id="rolldice" action="#{mygame.doRound()}"
+                                         image="resources/img/wuerfel#{mygame.player1DiceRolls}.png" alt="W&uuml;rfel Zahl #{mygame.player1DiceRolls}"
+                                         title="W&uuml;rfel Zahl #{mygame.player1DiceRolls}">
                             <f:ajax render=":play_area"/>
-                            <f:ajax render="diceform"/>
                             <f:ajax render=":info_area"/>
+                            <f:ajax render=":dicearea"/>
                         </h:commandButton>
                     </h:form>
-                </div>
+                </h:panelGroup>
                 <h:panelGroup layout="block" id="play_area">
                     <hr class="accessibility" />
                     <div id="board">
@@ -90,104 +97,95 @@
                         <div class="fields">
                             <h3 class="accessibility">Spielfelder</h3>
                             <ol title="Spielfelder">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="0" end="39">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.playFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach>
                             </ol>
                             <h3 class="accessibility">Starth&auml;user</h3>
                             <ol title="Starthaus Spieler 1">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="40" end="43">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player1StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach>
                             </ol>
                             <ol title="Starthaus Spieler 2">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="44" end="47">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player2StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach>
                             </ol>
                             <ol title="Starthaus Spieler 3">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="48" end="51">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player3StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach>
                             </ol>
                             <ol title="Starthaus Spieler 4">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="52" end="55">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player4StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach>
                             </ol>
                             <h3 class="accessibility">Zielh&auml;user</h3>
                             <ol title="Zielhaus Spieler 1">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="56" end="59">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player1FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach> 
                             </ol>
                             <ol title="Zielhaus Spieler 2">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="60" end="63">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player2FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach> 
                             </ol>
                             <ol title="Zielhaus Spieler 3">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="64" end="67">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player3FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach> 
                             </ol>
                             <ol title="Zielhaus Spieler 4">
-                                <c:forEach items="#{game.boardFields}" var="field"
-                                           begin="68" end="71">
-                                    <li><img id="field#{field.index}"
-                                            src="#{field.img}#{field.occupyingPlayerImage}.png"
-                                            alt="#{field.text}#{field.occupyingPlayerText}"
-                                            title="#{field.text}#{field.occupyingPlayerText}"/>
+                                <c:forEach items="#{mygame.playarea.player4FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                            src="#{field.imgString}"
+                                            alt="#{field.string}"
+                                            title="#{field.string}"/>
                                     </li>
                                 </c:forEach> 
                             </ol>
                         </div>
                         <div class="clearer"></div>  
-                        <h:panelGroup layout="block" id="infogegner" rendered="#{game.opponentScore}">
+                        <h:panelGroup layout="block" id="infogegner">
                             W&uuml;rfelergebnis Computer: 
-                            <ui:repeat var="score" value="#{game.opponentScore}">
+                            <c:forEach var="score" items="#{mygame.player2DiceRolls}">
                                 <h:outputText vale="#{score} "/>
-                            </ui:repeat>
+                            </c:forEach>
                         </h:panelGroup>
                     </div>
                 </h:panelGroup>	

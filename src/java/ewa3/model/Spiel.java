@@ -6,20 +6,21 @@ import java.beans.*;
 import java.io.Serializable;
 import java.util.*;
 
-@ManagedBean(name = "mygame")
+@ManagedBean(name="mygame")
 @SessionScoped
 public class Spiel implements Serializable {
-    public List<Spieler> Players;
-    public Spielfeld Playarea;
+    private List<Spieler> Players;
+    private Spielfeld Playarea;
     public HashMap<Spieler, LinkedList<Integer>> LastDies;
 
     private Integer Round;
     private long Starttime;
     private Boolean Over;
-
-    public Spiel(Spieler player) {
-        Players.add(player);
-        Players.add(new Spieler("Computer"));
+    
+    public Spiel() {
+        Players = Arrays.asList(new Spieler ("Mario"), new Spieler("Computer"));
+        
+        LastDies = new HashMap<Spieler, LinkedList<Integer>>();
 
         for (Spieler s : Players)
             LastDies.put(s, new LinkedList<Integer>());
@@ -28,7 +29,17 @@ public class Spiel implements Serializable {
         this.reset();
     }
 
-    public void reset() {
+    public Spiel(Spieler player) {
+        Players = Arrays.asList(player, new Spieler("Computer"));
+
+        for (Spieler s : Players)
+            LastDies.put(s, new LinkedList<Integer>());
+
+
+        this.reset();
+    }
+
+    public final void reset() {
         Playarea = new SpielfeldImpl(Players);
         Round = 0;
         Over = false;
@@ -39,6 +50,10 @@ public class Spiel implements Serializable {
     }
 
     public Boolean isOver() {
+        return Over;
+    }
+    
+    public Boolean getOver() {
         return Over;
     }
 
@@ -57,6 +72,14 @@ public class Spiel implements Serializable {
         return plyr;
     }
 
+    public List<Spieler> getPlayer() {
+        return Players;
+    }
+    
+    public Spieler getHumanPlayer() {
+        return Players.get(0);
+    }
+    
     public int getPlayersCnt() {
         return Players.size();
     }
@@ -72,6 +95,9 @@ public class Spiel implements Serializable {
     }
 
     public String doRound() {
+        if(Over) {
+            return "";
+        }
         Spieler humanPlayer = Players.get(0);
         Spieler computerPlayer = Players.get(1);
 
@@ -136,14 +162,22 @@ public class Spiel implements Serializable {
             this.Over = true;
         }
     }
+    
+    public Spielfeld getPlayarea() {
+        return Playarea;
+    }
 
-    public List<Integer> getPlayer1DiceRolls() throws Exception {
+    public String getPlayer1DiceRolls() throws Exception {
         if (Players.size() < 1)
             throw new Exception("Invalid player");
 
         Spieler s = Players.get(0);
+        Integer i = 0;
+        if(!LastDies.get(s).isEmpty()) {
+            i = LastDies.get(s).getLast();
+        }
 
-        return LastDies.get(s);
+        return i.toString();
     }
 
     public List<Integer> getPlayer2DiceRolls() throws Exception {

@@ -420,13 +420,13 @@ class SpielfeldImpl implements Spielfeld {
         }
 
         @Override
-        public String getID() {
+        public String getIndex() {
             return "field" + id;
         }
 
         @Override
         public String getString() {
-            String ret = "Feld " + getID();
+            String ret = "Feld " + getIndex();
             if (isFirstField()) {
                 ret += ": erstes Feld Spieler ";
                 ret += getColorNumber(getOwner());
@@ -444,7 +444,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getImgString() {
-            String ret = "img/field";
+            String ret = "resources/img/field";
             if (isFirstField()) {
                 ret += getColorNumber(getOwner());
             }
@@ -553,7 +553,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getImgString() {
-            String ret = "img/field";
+            String ret = "resources/img/field";
             ret += getColorNumber(getOwner());
             if (getContent() != null) {
                 ret += "_player";
@@ -571,7 +571,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + getID() + ": Startfeld Spieler ";
+            String ret = "Feld " + getIndex() + ": Startfeld Spieler ";
             ret += getColorNumber(getOwner());
 
 
@@ -592,7 +592,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + getID() + ": Zielfeld Spieler ";
+            String ret = "Feld " + getIndex() + ": Zielfeld Spieler ";
             ret += getColorNumber(getOwner());
 
 
