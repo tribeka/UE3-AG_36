@@ -7,6 +7,7 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xml:lang="de" lang="de"
       xmlns:f="http://java.sun.com/jsf/core">
+    <f:view>
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="title">
@@ -28,10 +29,11 @@
             <ui:define name="content">
                 <h:panelGroup id="info_area" layout="block">
                     <h:form rendered="#{mygame.over}">
-                        <h:commandButton action="#{mygame.reset()}" value="Restart">
+                        <h:commandButton onclick="#{mygame.reset()}" value="Restart">
                             <f:ajax render=":play_area"/>
                             <f:ajax render=":info_area"/>
                             <f:ajax render=":dicearea"/>
+                            <f:ajax render=":infogegner"/>
                         </h:commandButton>
                     </h:form>
                     <h2>Spielinformationen</h2>
@@ -81,12 +83,13 @@
                     <h2 class="accessibility">W&uuml;rfel</h2>
                     <span title='aktueller Spieler'><h:outputText value="#{mygame.humanPlayer.name}" /></span>
                     <h:form id="diceform">
-                        <h:commandButton id="rolldice" action="#{mygame.doRound()}"
+                        <h:commandButton id="rolldice" onclick="#{mygame.doRound()}"
                                          image="resources/img/wuerfel#{mygame.player1DiceRolls}.png" alt="W&uuml;rfel Zahl #{mygame.player1DiceRolls}"
                                          title="W&uuml;rfel Zahl #{mygame.player1DiceRolls}">
                             <f:ajax render=":play_area"/>
                             <f:ajax render=":info_area"/>
                             <f:ajax render=":dicearea"/>
+                            <f:ajax render=":infogegner"/>
                         </h:commandButton>
                     </h:form>
                 </h:panelGroup>
@@ -183,8 +186,8 @@
                         <div class="clearer"></div>  
                         <h:panelGroup layout="block" id="infogegner">
                             W&uuml;rfelergebnis Computer: 
-                            <c:forEach var="score" items="#{mygame.player2DiceRolls}">
-                                <h:outputText vale="#{score} "/>
+                            <c:forEach items="#{mygame.player2DiceRolls}" var="score">
+                                #{score}&nbsp;
                             </c:forEach>
                         </h:panelGroup>
                     </div>
@@ -193,4 +196,5 @@
         </ui:composition>
 
     </h:body>
-</html>                           
+        </f:view>
+</html>           

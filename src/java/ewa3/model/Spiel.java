@@ -31,6 +31,8 @@ public class Spiel implements Serializable {
 
     public Spiel(Spieler player) {
         Players = Arrays.asList(player, new Spieler("Computer"));
+        
+        LastDies = new HashMap<Spieler, LinkedList<Integer>>();
 
         for (Spieler s : Players)
             LastDies.put(s, new LinkedList<Integer>());
