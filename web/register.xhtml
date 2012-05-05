@@ -31,28 +31,24 @@
                 <div id="main">
                     <h2>Registrieren</h2>
                     <p>Bitte f&uuml;llen Sie das untenstehende Formular aus!</p>
-				
+
                     <h:form id="sendeRegistrierung">
 			<h3><span xml:lang="en">Login</span> Daten </h3>
                         <div class="formblock">
                             <h:panelGrid columns="2">
-                                <div>
-                                    <h:outputLabel value="#{msg.username} " for="username" />
-                                    <h:inputText id="username" value="#{register.player.name}" 
+                                <h:outputLabel value="#{msg.username} " for="username" />
+                                <h:inputText id="username" value="#{register.player.name}" 
                                                  required="true"
                                                  label="#{msg.username}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputText>
-				</div>
-
-				<div>
-                                    <h:outputLabel value="#{msg.password} " for="password" />
-                                    <h:inputSecret id="password" value="#{register.player.password}" 
+                                        <f:validateRegex pattern="[a-zA-Z]*"/>
+                                </h:inputText>
+                                <h:outputLabel value="#{msg.password} " for="password" />
+                                <h:inputSecret id="password" value="#{register.player.password}" 
                                                  required="true"
                                                  label="#{msg.password}">
                                         <f:validateLength minimum="3" />
-                                    </h:inputSecret>
-            			</div>
+                                        <f:validateRegex pattern="((?=.*\d)(?=.*[a-zA-Z]).{3,20})"/>
+                                </h:inputSecret>
                             </h:panelGrid>
 			</div>
                         
@@ -66,38 +62,30 @@
                         <h3>Pers&ouml;nliche Daten</h3>
                         <div class="formblock">
                             <h:panelGrid columns="2" rendered="#{register.displaypersonal}">
-                                <div>
-                                    <h:outputLabel value="#{msg.firstname} " for="firstname" />
-                                    <h:inputText id="firstname" value="#{register.player.firstName}" 
-                                                 required="false"
+                                <h:outputLabel value="#{msg.firstname} " for="firstname" />
+                                <h:inputText id="firstname" value="#{register.player.firstName}" 
+                                                 required="true"
                                                  label="#{msg.firstname}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputText>
-				</div>
-				<div>
-                                    <h:outputLabel value="#{msg.lastname} " for="lastname" />
-                                    <h:inputText id="lastname" value="#{register.player.lastName}" 
-                                                 required="false"
+                                        <f:validateRegex pattern="[a-zA-Z]*"/>
+                                </h:inputText>
+                                <h:outputLabel value="#{msg.lastname} " for="lastname" />
+                                <h:inputText id="lastname" value="#{register.player.lastName}" 
+                                                 required="true"
                                                  label="#{msg.lastname}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputText>
-				</div>
-                                <div>
-                                    <h:outputLabel value="#{msg.dateofbirth} " for="dateofbirth" />
-                                    <h:inputText id="dateofbirth" value="#{register.player.dateOfBirth}" 
-                                                 required="false"
+                                        <f:validateRegex pattern="[a-zA-Z]*"/>
+                                </h:inputText>
+                                <h:outputLabel value="#{msg.dateofbirth} " for="dateofbirth" />
+                                <h:inputText id="dateofbirth" value="#{register.player.dateOfBirth}" 
+                                                 required="true"
                                                  validator="#{register.validateGeburtsdatum}" 
                                                  label="#{msg.dateofbirth}">
                                         <f:validateLength minimum="10" maximum="10"/>
-                                    </h:inputText>
-				</div>
-                                <div>
-                                    <h:outputLabel value="#{msg.sex} " for="sex" />
-                                    <h:selectOneListbox id="sex" label="#{msg.sex}">
+                                </h:inputText>
+                                <h:outputLabel value="#{msg.sex} " for="sex" />
+                                <h:selectOneMenu id="sex" label="#{msg.sex}" required="true">
                                         <f:selectItem id="sex1" itemLabel="weiblich" itemValue="0" />
                                         <f:selectItem id="sex2" itemLabel="m&auml;nnlich" itemValue="1" />
-                                    </h:selectOneListbox>
-				</div>
+                                </h:selectOneMenu>
                             </h:panelGrid>
 			</div>
 			<div id="buttons">
