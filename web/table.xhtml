@@ -7,193 +7,197 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xml:lang="de" lang="de"
       xmlns:f="http://java.sun.com/jsf/core">
-<h:body>
-    <ui:composition template="./Template.xhtml">
-        <ui:define name="title">
-            EWA Mensch &auml;rgere Dich nicht :: Spiel
-        </ui:define>
-        <ui:define name="accessibilitymenu">
-            <li><a href="#navigation" accesskey="2">Navigation</a></li>
-            <li><a href="#board" accesskey="0">Spielbrett</a></li>
-            <li><a href="#dicearea" accesskey="1">W&uuml;rfel</a></li>
-            <li><a href="#info_area" accesskey="3">Spielstand</a></li>
-        </ui:define>
+<f:view>
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="title">
+                EWA Mensch &auml;rgere Dich nicht :: Spiel
+            </ui:define>
+            <ui:define name="accessibilitymenu">
+                <li><a href="#navigation" accesskey="2">Navigation</a></li>
+                <li><a href="#board" accesskey="0">Spielbrett</a></li>
+                <li><a href="#dicearea" accesskey="1">W&uuml;rfel</a></li>
+                <li><a href="#info_area" accesskey="3">Spielstand</a></li>
+            </ui:define>
 
-        <ui:define name="menu">
-            <li><a href="#">Userdaten &auml;ndern</a></li>
-            <li><a href="#">Zur&uuml;ck zur Lounge</a></li>
-            <li><a href="#">Ausloggen</a></li>
-        </ui:define>
+            <ui:define name="menu">
+                <li><a href="#">Userdaten &auml;ndern</a></li>
+                <li><a href="#">Zur&uuml;ck zur Lounge</a></li>
+                <li><a href="#">Ausloggen</a></li>
+            </ui:define>
 
-        <ui:define name="content">
-            <h:panelGroup id="info_area" layout="block">
-                <h:form rendered="#{mygame.over}">
-                    <h:commandButton action="#{mygame.reset()}" value="Restart">
-                        <f:ajax render=":play_area"/>
-                        <f:ajax render=":info_area"/>
-                        <f:ajax render=":dicearea"/>
-                    </h:commandButton>
-                </h:form>
+            <ui:define name="content">
+                <h:panelGroup id="info_area" layout="block">
+                    <h:form rendered="#{mygame.over}">
+                        <h:commandButton onclick="#{mygame.reset()}" value="Restart">
+                            <f:ajax render=":play_area"/>
+                            <f:ajax render=":info_area"/>
+                            <f:ajax render=":dicearea"/>
+                            <f:ajax render=":infogegner"/>
+                        </h:commandButton>
+                    </h:form>
 
-                <h2>Spielinformationen</h2>
-                <table class="game_info" summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
-                    <tbody>
-                    <tr class="accessibility">
-                        <th>Information</th>
-                        <th>Wert</th>
-                    </tr>
-                    <tr>
-                        <th>Anzahl Spieler</th>
-                        <td><h:outputText value="#{mygame.playersCnt}"/></td>
-                    </tr>
-                    <tr>
-                        <th>F&uuml;hrender</th>
-                        <td><h:outputText value="#{mygame.leader.name}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Aktuelle Runde</th>
-                        <td><h:outputText value="#{mygame.round}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Zeit</th>
-                        <td><h:outputText value="#{mygame.time}"/></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <h2>Spieler</h2>
-                <table class="game_info" summary="Diese Tabelle listet die Namen der Spieler auf">
-                    <tbody>
-                    <tr class="accessibility">
-                        <th>Spielernummer</th>
-                        <th>Spielername</th>
-                    </tr>
-
-                    <ui:repeat value="#{mygame.player}" var="plr" varStatus="status">
-                        <tr>
-                            <th><h:outputText value="Spieler #{status.index +1}"/></th>
-                            <td><h:outputText value="#{plr.name}"/></td>
+                    <h2>Spielinformationen</h2>
+                    <table class="game_info" summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
+                        <tbody>
+                        <tr class="accessibility">
+                            <th>Information</th>
+                            <th>Wert</th>
                         </tr>
-                    </ui:repeat>
-                    </tbody>
-                </table>
-            </h:panelGroup>
-            <h:panelGroup id="dicearea" layout="block">
-                <hr class="accessibility"/>
-                <h2 class="accessibility">W&uuml;rfel</h2>
-                <span title='aktueller Spieler'><h:outputText value="#{mygame.humanPlayer.name}"/></span>
-                <h:form id="diceform">
-                    <h:commandButton id="rolldice" action="#{mygame.doRound()}"
-                                     image="resources/img/wuerfel#{mygame.player1DiceRolls}.png"
-                                     alt="W&uuml;rfel Zahl #{mygame.player1DiceRolls}"
-                                     title="W&uuml;rfel Zahl #{mygame.player1DiceRolls}">
-                        <f:ajax render=":play_area"/>
-                        <f:ajax render=":info_area"/>
-                        <f:ajax render=":dicearea"/>
-                    </h:commandButton>
-                </h:form>
-            </h:panelGroup>
-            <h:panelGroup layout="block" id="play_area">
-                <hr class="accessibility"/>
-                <div id="board">
-                    <h2 class="accessibility">Spielbrett</h2>
+                        <tr>
+                            <th>Anzahl Spieler</th>
+                            <td><h:outputText value="#{mygame.playersCnt}"/></td>
+                        </tr>
+                        <tr>
+                            <th>F&uuml;hrender</th>
+                            <td><h:outputText value="#{mygame.leader.name}"/></td>
+                        </tr>
+                        <tr>
+                            <th>Aktuelle Runde</th>
+                            <td><h:outputText value="#{mygame.round}"/></td>
+                        </tr>
+                        <tr>
+                            <th>Zeit</th>
+                            <td><h:outputText value="#{mygame.time}"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h2>Spieler</h2>
+                    <table class="game_info" summary="Diese Tabelle listet die Namen der Spieler auf">
+                        <tbody>
+                        <tr class="accessibility">
+                            <th>Spielernummer</th>
+                            <th>Spielername</th>
+                        </tr>
 
-                    <div class="fields">
-                        <h3 class="accessibility">Spielfelder</h3>
-                        <ol title="Spielfelder">
-                            <c:forEach items="#{mygame.playarea.playFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
+                        <ui:repeat value="#{mygame.player}" var="plr" varStatus="status">
+                            <tr>
+                                <th><h:outputText value="Spieler #{status.index +1}"/></th>
+                                <td><h:outputText value="#{plr.name}"/></td>
+                            </tr>
+                        </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:panelGroup>
+                <h:panelGroup id="dicearea" layout="block">
+                    <hr class="accessibility"/>
+                    <h2 class="accessibility">W&uuml;rfel</h2>
+                    <span title='aktueller Spieler'><h:outputText value="#{mygame.humanPlayer.name}"/></span>
+                    <h:form id="diceform">
+                        <h:commandButton id="rolldice" onclick="#{mygame.doRound()}"
+                                         image="resources/img/wuerfel#{mygame.player1DiceRolls}.png"
+                                         alt="W&uuml;rfel Zahl #{mygame.player1DiceRolls}"
+                                         title="W&uuml;rfel Zahl #{mygame.player1DiceRolls}">
+                            <f:ajax render=":play_area"/>
+                            <f:ajax render=":info_area"/>
+                            <f:ajax render=":dicearea"/>
+                            <f:ajax render=":infogegner"/>
+                        </h:commandButton>
+                    </h:form>
+                </h:panelGroup>
+                <h:panelGroup layout="block" id="play_area">
+                    <hr class="accessibility"/>
+                    <div id="board">
+                        <h2 class="accessibility">Spielbrett</h2>
+
+                        <div class="fields">
+                            <h3 class="accessibility">Spielfelder</h3>
+                            <ol title="Spielfelder">
+                                <c:forEach items="#{mygame.playarea.playFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <h3 class="accessibility">Starth&auml;user</h3>
+                            <ol title="Starthaus Spieler 1">
+                                <c:forEach items="#{mygame.playarea.player1StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <ol title="Starthaus Spieler 2">
+                                <c:forEach items="#{mygame.playarea.player2StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <ol title="Starthaus Spieler 3">
+                                <c:forEach items="#{mygame.playarea.player3StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <ol title="Starthaus Spieler 4">
+                                <c:forEach items="#{mygame.playarea.player4StartFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <h3 class="accessibility">Zielh&auml;user</h3>
+                            <ol title="Zielhaus Spieler 1">
+                                <c:forEach items="#{mygame.playarea.player1FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <ol title="Zielhaus Spieler 2">
+                                <c:forEach items="#{mygame.playarea.player2FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <ol title="Zielhaus Spieler 3">
+                                <c:forEach items="#{mygame.playarea.player3FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                            <ol title="Zielhaus Spieler 4">
+                                <c:forEach items="#{mygame.playarea.player4FinishFields}" var="field">
+                                    <li><img id="#{field.index}"
+                                             src="#{field.imgString}"
+                                             alt="#{field.string}"
+                                             title="#{field.string}"/>
+                                    </li>
+                                </c:forEach>
+                            </ol>
+                        </div>
+                        <div class="clearer"></div>
+                        <h:panelGroup layout="block" id="infogegner">
+                            W&uuml;rfelergebnis Computer:
+                            <c:forEach items="#{mygame.player2DiceRolls}" var="score">
+                                #{score}&nbsp;
                             </c:forEach>
-                        </ol>
-                        <h3 class="accessibility">Starth&auml;user</h3>
-                        <ol title="Starthaus Spieler 1">
-                            <c:forEach items="#{mygame.playarea.player1StartFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <ol title="Starthaus Spieler 2">
-                            <c:forEach items="#{mygame.playarea.player2StartFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <ol title="Starthaus Spieler 3">
-                            <c:forEach items="#{mygame.playarea.player3StartFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <ol title="Starthaus Spieler 4">
-                            <c:forEach items="#{mygame.playarea.player4StartFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <h3 class="accessibility">Zielh&auml;user</h3>
-                        <ol title="Zielhaus Spieler 1">
-                            <c:forEach items="#{mygame.playarea.player1FinishFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <ol title="Zielhaus Spieler 2">
-                            <c:forEach items="#{mygame.playarea.player2FinishFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <ol title="Zielhaus Spieler 3">
-                            <c:forEach items="#{mygame.playarea.player3FinishFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
-                        <ol title="Zielhaus Spieler 4">
-                            <c:forEach items="#{mygame.playarea.player4FinishFields}" var="field">
-                                <li><img id="#{field.index}"
-                                         src="#{field.imgString}"
-                                         alt="#{field.string}"
-                                         title="#{field.string}"/>
-                                </li>
-                            </c:forEach>
-                        </ol>
+                        </h:panelGroup>
                     </div>
-                    <div class="clearer"></div>
-                    <h:panelGroup layout="block" id="infogegner">
-                        W&uuml;rfelergebnis Computer:
-                        <c:forEach var="score" items="#{mygame.player2DiceRolls}">
-                            <h:outputText vale="#{score} "/>
-                        </c:forEach>
-                    </h:panelGroup>
-                </div>
-            </h:panelGroup>
-        </ui:define>
-    </ui:composition>
+                </h:panelGroup>
+            </ui:define>
+        </ui:composition>
 
-</h:body>
-</html>                           
+    </h:body>
+</f:view>
+</html>           
