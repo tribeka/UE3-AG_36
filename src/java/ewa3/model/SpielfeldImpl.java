@@ -425,7 +425,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + getIndex();
+            String ret = "Feld " + id;
             if (isFirstField()) {
                 ret += ": erstes Feld Spieler ";
                 ret += getColorNumber(getOwner());
@@ -570,7 +570,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + getIndex() + ": Startfeld Spieler ";
+            String ret = "Feld " + id + ": Startfeld Spieler ";
             ret += getColorNumber(getOwner());
 
 
@@ -591,7 +591,7 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + getIndex() + ": Zielfeld Spieler ";
+            String ret = "Feld " + id + ": Zielfeld Spieler ";
             ret += getColorNumber(getOwner());
 
 

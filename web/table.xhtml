@@ -11,19 +11,19 @@
     <h:body>
         <ui:composition template="./Template.xhtml">
             <ui:define name="title">
-                EWA Mensch &auml;rgere Dich nicht :: Spiel
+                EWA Mensch &auml;rgere Dich nicht :: #{msg.game}
             </ui:define>
             <ui:define name="accessibilitymenu">
-                <li><a href="#navigation" accesskey="2">Navigation</a></li>
-                <li><a href="#board" accesskey="0">Spielbrett</a></li>
-                <li><a href="#dicearea" accesskey="1">W&uuml;rfel</a></li>
-                <li><a href="#info_area" accesskey="3">Spielstand</a></li>
+                <li><a href="#navigation" accesskey="2">#{msg.navigation}</a></li>
+                <li><a href="#board" accesskey="0">#{msg.gamearea}</a></li>
+                <li><a href="#dicearea" accesskey="1">#{msg.dice}</a></li>
+                <li><a href="#info_area" accesskey="3">#{msg.gamestatus}</a></li>
             </ui:define>
 
             <ui:define name="menu">
-                <li><a href="#">Userdaten &auml;ndern</a></li>
-                <li><a href="#">Zur&uuml;ck zur Lounge</a></li>
-                <li><a href="#">Ausloggen</a></li>
+                <li><a href="#">#{msg.changeuserdata}</a></li>
+                <li><a href="#">#{msg.backtolounge}</a></li>
+                <li><a href="#">#{msg.logout}</a></li>
             </ui:define>
 
             <ui:define name="content">
@@ -34,42 +34,42 @@
                         </h:commandButton>
                     </h:form>
 
-                    <h2>Spielinformationen</h2>
-                    <table class="game_info" summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
+                    <h2>#{msg.gameinfo}</h2>
+                    <table class="game_info" summary="#{msg.gameinfo_summary}">
                         <tbody>
                         <tr class="accessibility">
-                            <th>Information</th>
-                            <th>Wert</th>
+                            <th>#{msg.information}</th>
+                            <th>#{msg.value}</th>
                         </tr>
                         <tr>
-                            <th>Anzahl Spieler</th>
+                            <th>#{msg.playercount}</th>
                             <td><h:outputText value="#{mygame.playersCnt}"/></td>
                         </tr>
                         <tr>
-                            <th>F&uuml;hrender</th>
+                            <th>#{msg.player_leader}</th>
                             <td><h:outputText value="#{mygame.leader.name}"/></td>
                         </tr>
                         <tr>
-                            <th>Aktuelle Runde</th>
+                            <th>#{msg.currentround}</th>
                             <td><h:outputText value="#{mygame.round}"/></td>
                         </tr>
                         <tr>
-                            <th>Zeit</th>
+                            <th>#{msg.time}</th>
                             <td><h:outputText value="#{mygame.time}"/></td>
                         </tr>
                         </tbody>
                     </table>
                     <h2>Spieler</h2>
-                    <table class="game_info" summary="Diese Tabelle listet die Namen der Spieler auf">
+                    <table class="game_info" summary="#{msg.playerinfo_summary}">
                         <tbody>
                         <tr class="accessibility">
-                            <th>Spielernummer</th>
-                            <th>Spielername</th>
+                            <th>#{msg.player_nr}</th>
+                            <th>#{msg.player_name}</th>
                         </tr>
 
                         <ui:repeat value="#{mygame.player}" var="plr" varStatus="status">
                             <tr>
-                                <th><h:outputText value="Spieler #{status.index +1}"/></th>
+                                <th><h:outputText value="#{msg.player_prefix} #{status.index +1}"/></th>
                                 <td><h:outputText value="#{plr.name}"/></td>
                             </tr>
                         </ui:repeat>
@@ -78,13 +78,13 @@
                 </h:panelGroup>
                 <h:panelGroup id="dicearea" layout="block">
                     <hr class="accessibility"/>
-                    <h2 class="accessibility">W&uuml;rfel</h2>
-                    <span title='aktueller Spieler'><h:outputText value="#{mygame.humanPlayer.name}"/></span>
+                    <h2 class="accessibility">#{msg.dice}</h2>
+                    <span title='#{msg.player_current}'><h:outputText value="#{mygame.humanPlayer.name}"/></span>
                     <h:form id="diceform">
                         <h:commandButton id="rolldice" action="#{mygame.doRound()}"
                                          image="resources/img/wuerfel#{mygame.player1DiceRolls}.png"
-                                         alt="W&uuml;rfel Zahl #{mygame.player1DiceRolls}"
-                                         title="W&uuml;rfel Zahl #{mygame.player1DiceRolls}">
+                                         alt="#{msg.dice} #{msg.dice_number} #{mygame.player1DiceRolls}"
+                                         title="#{msg.dice} #{msg.dice_number} #{mygame.player1DiceRolls}">
                             <f:ajax event="action" render=":play_area :info_area :dicearea :infogegner"/>
                         </h:commandButton>
                     </h:form>
@@ -92,11 +92,11 @@
                 <h:panelGroup layout="block" id="play_area">
                     <hr class="accessibility"/>
                     <div id="board">
-                        <h2 class="accessibility">Spielbrett</h2>
+                        <h2 class="accessibility">#{msg.playfield}</h2>
 
                         <div class="fields">
-                            <h3 class="accessibility">Spielfelder</h3>
-                            <ol title="Spielfelder">
+                            <h3 class="accessibility">#{msg.playfield_units}</h3>
+                            <ol title="#{msg.playfield_units}">
                                 <c:forEach items="${mygame.playarea.playFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -105,8 +105,8 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <h3 class="accessibility">Starth&auml;user</h3>
-                            <ol title="Starthaus Spieler 1">
+                            <h3 class="accessibility">#{msg.playfield_startareas}</h3>
+                            <ol title="#{msg.playfield_startarea} #{msg.player_prefix} 1">
                                 <c:forEach items="${mygame.playarea.player1StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -115,7 +115,7 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <ol title="Starthaus Spieler 2">
+                            <ol title="#{msg.playfield_startarea} #{msg.player_prefix} 2">
                                 <c:forEach items="${mygame.playarea.player2StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -124,7 +124,7 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <ol title="Starthaus Spieler 3">
+                            <ol title="#{msg.playfield_startarea} #{msg.player_prefix} 3">
                                 <c:forEach items="${mygame.playarea.player3StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -133,7 +133,7 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <ol title="Starthaus Spieler 4">
+                            <ol title="#{msg.playfield_startarea} #{msg.player_prefix} 4">
                                 <c:forEach items="${mygame.playarea.player4StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -142,8 +142,8 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <h3 class="accessibility">Zielh&auml;user</h3>
-                            <ol title="Zielhaus Spieler 1">
+                            <h3 class="accessibility">#{msg.playfield_finishareas}</h3>
+                            <ol title="#{msg.playfield_finisharea} #{msg.player_prefix} 1">
                                 <c:forEach items="${mygame.playarea.player1FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -152,7 +152,7 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <ol title="Zielhaus Spieler 2">
+                            <ol title="#{msg.playfield_finisharea} #{msg.player_prefix} 2">
                                 <c:forEach items="${mygame.playarea.player2FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -161,7 +161,7 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <ol title="Zielhaus Spieler 3">
+                            <ol title="#{msg.playfield_finisharea} #{msg.player_prefix} 3">
                                 <c:forEach items="${mygame.playarea.player3FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -170,7 +170,7 @@
                                     </li>
                                 </c:forEach>
                             </ol>
-                            <ol title="Zielhaus Spieler 4">
+                            <ol title="#{msg.playfield_finisharea} #{msg.player_prefix} 4">
                                 <c:forEach items="${mygame.playarea.player4FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
@@ -182,7 +182,7 @@
                         </div>
                         <div class="clearer"></div>
                         <h:panelGroup layout="block" id="infogegner">
-                            W&uuml;rfelergebnis Computer:
+                            #{msg.dice_computer_rolls}
                             <c:forEach items="${mygame.player2DiceRolls}" var="score">
                                 #{score}&nbsp;
                             </c:forEach>
