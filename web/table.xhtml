@@ -29,11 +29,8 @@
             <ui:define name="content">
                 <h:panelGroup id="info_area" layout="block">
                     <h:form rendered="#{mygame.over}">
-                        <h:commandButton onclick="#{mygame.reset()}" value="Restart">
-                            <f:ajax render=":play_area"/>
-                            <f:ajax render=":info_area"/>
-                            <f:ajax render=":dicearea"/>
-                            <f:ajax render=":infogegner"/>
+                        <h:commandButton action="#{mygame.reset()}" value="Restart">
+                            <f:ajax execute="@all" render=":play_area :info_area :dicearea :infogegner"/>
                         </h:commandButton>
                     </h:form>
 
@@ -84,14 +81,11 @@
                     <h2 class="accessibility">W&uuml;rfel</h2>
                     <span title='aktueller Spieler'><h:outputText value="#{mygame.humanPlayer.name}"/></span>
                     <h:form id="diceform">
-                        <h:commandButton id="rolldice" onclick="#{mygame.doRound()}"
+                        <h:commandButton id="rolldice" action="#{mygame.doRound()}"
                                          image="resources/img/wuerfel#{mygame.player1DiceRolls}.png"
                                          alt="W&uuml;rfel Zahl #{mygame.player1DiceRolls}"
                                          title="W&uuml;rfel Zahl #{mygame.player1DiceRolls}">
-                            <f:ajax render=":play_area"/>
-                            <f:ajax render=":info_area"/>
-                            <f:ajax render=":dicearea"/>
-                            <f:ajax render=":infogegner"/>
+                            <f:ajax event="action" render=":play_area :info_area :dicearea :infogegner"/>
                         </h:commandButton>
                     </h:form>
                 </h:panelGroup>
@@ -103,7 +97,7 @@
                         <div class="fields">
                             <h3 class="accessibility">Spielfelder</h3>
                             <ol title="Spielfelder">
-                                <c:forEach items="#{mygame.playarea.playFields}" var="field">
+                                <c:forEach items="${mygame.playarea.playFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -113,7 +107,7 @@
                             </ol>
                             <h3 class="accessibility">Starth&auml;user</h3>
                             <ol title="Starthaus Spieler 1">
-                                <c:forEach items="#{mygame.playarea.player1StartFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player1StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -122,7 +116,7 @@
                                 </c:forEach>
                             </ol>
                             <ol title="Starthaus Spieler 2">
-                                <c:forEach items="#{mygame.playarea.player2StartFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player2StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -131,7 +125,7 @@
                                 </c:forEach>
                             </ol>
                             <ol title="Starthaus Spieler 3">
-                                <c:forEach items="#{mygame.playarea.player3StartFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player3StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -140,7 +134,7 @@
                                 </c:forEach>
                             </ol>
                             <ol title="Starthaus Spieler 4">
-                                <c:forEach items="#{mygame.playarea.player4StartFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player4StartFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -150,7 +144,7 @@
                             </ol>
                             <h3 class="accessibility">Zielh&auml;user</h3>
                             <ol title="Zielhaus Spieler 1">
-                                <c:forEach items="#{mygame.playarea.player1FinishFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player1FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -159,7 +153,7 @@
                                 </c:forEach>
                             </ol>
                             <ol title="Zielhaus Spieler 2">
-                                <c:forEach items="#{mygame.playarea.player2FinishFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player2FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -168,7 +162,7 @@
                                 </c:forEach>
                             </ol>
                             <ol title="Zielhaus Spieler 3">
-                                <c:forEach items="#{mygame.playarea.player3FinishFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player3FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -177,7 +171,7 @@
                                 </c:forEach>
                             </ol>
                             <ol title="Zielhaus Spieler 4">
-                                <c:forEach items="#{mygame.playarea.player4FinishFields}" var="field">
+                                <c:forEach items="${mygame.playarea.player4FinishFields}" var="field">
                                     <li><img id="#{field.index}"
                                              src="#{field.imgString}"
                                              alt="#{field.string}"
@@ -189,7 +183,7 @@
                         <div class="clearer"></div>
                         <h:panelGroup layout="block" id="infogegner">
                             W&uuml;rfelergebnis Computer:
-                            <c:forEach items="#{mygame.player2DiceRolls}" var="score">
+                            <c:forEach items="${mygame.player2DiceRolls}" var="score">
                                 #{score}&nbsp;
                             </c:forEach>
                         </h:panelGroup>
