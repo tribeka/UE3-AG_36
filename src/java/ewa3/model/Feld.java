@@ -22,7 +22,7 @@ public interface Feld extends Serializable {
     //Gibt bei einem Start/Ziel/erstem/letztem Feld an, zu welchem Spieler es gehört
     public PlayerColor getOwner();
 
-    public String getID();
+    public String getIndex();
 
     public String getString();
 
