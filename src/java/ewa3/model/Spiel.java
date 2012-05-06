@@ -5,6 +5,8 @@ import javax.faces.bean.SessionScoped;
 import java.beans.*;
 import java.io.Serializable;
 import java.util.*;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "mygame")
 @SessionScoped
@@ -191,6 +193,13 @@ public class Spiel implements Serializable {
         Spieler s = Players.get(1);
 
         return LastDies.get(s);
+    }
+    
+    public String getDestroy() {
+        FacesContext f = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) f.getExternalContext().getSession(false);
+        session.invalidate();
+        return "login.xhtml";
     }
 
 }

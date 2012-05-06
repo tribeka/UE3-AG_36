@@ -1,6 +1,7 @@
 package model;
 
 import java.util.*;
+import javax.faces.context.FacesContext;
 
 /**
  * @author Bruno Bajtela
@@ -425,17 +426,21 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + id;
+            ResourceBundle b = ResourceBundle.getBundle("i18n", 
+                    FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            String ret = b.getString("field") + " " + id;
             if (isFirstField()) {
-                ret += ": erstes Feld Spieler ";
+                ret += ": "+b.getString("first")+" "+
+                        b.getString("field") + " " + b.getString("player_prefix") + " ";
                 ret += getColorNumber(getOwner());
             } else if (isLastField()) {
-                ret += ": letztes Feld Spieler ";
+                ret += ": " + b.getString("last") +" " + b.getString("field") + " "
+                        + b.getString("player_prefix") + " ";
                 ret += getColorNumber(getOwner());
             }
 
             if (getContent() != null) {
-                ret += ": Spieler ";
+                ret += ": " + b.getString("player_prefix") + " ";
                 ret += getPlayerNumber(getContent());
             }
             return ret;
@@ -570,12 +575,15 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + id + ": Startfeld Spieler ";
+            ResourceBundle b = ResourceBundle.getBundle("i18n", 
+                    FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            String ret = b.getString("field") + " " + id + ": "
+                    + b.getString("startfield") + " " + b.getString("player_prefix") + " ";
             ret += getColorNumber(getOwner());
 
 
             if (getContent() != null) {
-                ret += ": Spieler ";
+                ret += ": " + b.getString("player_prefix") + " ";
                 ret += getPlayerNumber(getContent());
             }
 
@@ -591,12 +599,15 @@ class SpielfeldImpl implements Spielfeld {
 
         @Override
         public String getString() {
-            String ret = "Feld " + id + ": Zielfeld Spieler ";
+            ResourceBundle b = ResourceBundle.getBundle("i18n", 
+                    FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            String ret = b.getString("field") + " " + id + ": " + b.getString("finishfield")
+                    + " " + b.getString("player_prefix") + " ";
             ret += getColorNumber(getOwner());
 
 
             if (getContent() != null) {
-                ret += ": Spieler ";
+                ret += ": " + b.getString("player_prefix") + " ";
                 ret += getPlayerNumber(getContent());
             }
 
