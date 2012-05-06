@@ -56,18 +56,24 @@ public class Spiel implements Serializable {
     }
 
     public Spieler getLeader() {
-        Iterator<Spieler> it = Players.iterator();
-        Spieler plyr = null, tmpplyr;
-        Integer dist = 100, temp; //greater than max distance
-        do {
-            tmpplyr = it.next();
-            temp = Playarea.distanceToFinish(tmpplyr);
-            if (temp < dist) {
-                dist = temp;
-                plyr = tmpplyr;
+
+        Integer dist = Integer.MAX_VALUE;
+
+        if (Over) {
+            for (Spieler s : Players)
+                if (Playarea.isPlayerFinished(s))
+                    return s;
+        }
+
+        Spieler leader = Players.get(0);
+        for (Spieler s : Players) {
+            Integer sdist = Playarea.distanceToFinish(s);
+            if (sdist < dist) {
+                dist = sdist;
+                leader = s;
             }
-        } while (it.hasNext());
-        return plyr;
+        }
+        return leader;
     }
 
     public List<Spieler> getPlayer() {

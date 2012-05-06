@@ -248,7 +248,7 @@ class SpielfeldImpl implements Spielfeld {
         FeldImpl current = currentPos.get(player);
 
         if (!current.isRegularField())
-            return -1;
+            return Integer.MAX_VALUE;
 
         int distance = 0;
 

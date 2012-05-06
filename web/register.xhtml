@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -8,105 +8,97 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xml:lang="de" lang="de"
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:body>
-        <ui:composition template="./Template.xhtml">
-            <ui:define name="title">
-                EWA Mensch &auml;rgere Dich nicht :: Registrierung
-            </ui:define>
-        
-            <ui:define name="accheader">
-                EWA Memory
-            </ui:define>
-            
-            <ui:define name="accessibilitymenu">
-                <li><a href="#navigation" accesskey="1">Navigation</a></li>
-                <li><a href="#main" accesskey="0">Registrierungs-Formular</a></li>
-            </ui:define>
+<h:body>
+    <ui:composition template="./Template.xhtml">
+        <ui:define name="title">
+            EWA Mensch &auml;rgere Dich nicht :: #{msg.registerprocess}
+        </ui:define>
 
-            <ui:define name="menu">
-                <li><a href="#">Zur&uuml;ck zur Lounge</a></li>
-            </ui:define>            
-            
-            <ui:define name="content">
-                <div id="main">
-                    <h2>Registrieren</h2>
-                    <p>Bitte f&uuml;llen Sie das untenstehende Formular aus!</p>
-				
-                    <h:form id="sendeRegistrierung">
-			<h3><span xml:lang="en">Login</span> Daten </h3>
-                        <div class="formblock">
-                            <h:panelGrid columns="2">
-                                <div>
-                                    <h:outputLabel value="#{msg.username} " for="username" />
-                                    <h:inputText id="username" value="#{register.player.name}" 
-                                                 required="true"
-                                                 label="#{msg.username}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputText>
-				</div>
+        <ui:define name="accheader">
+            EWA Memory
+        </ui:define>
 
-				<div>
-                                    <h:outputLabel value="#{msg.password} " for="password" />
-                                    <h:inputSecret id="password" value="#{register.player.password}" 
-                                                 required="true"
-                                                 label="#{msg.password}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputSecret>
-            			</div>
-                            </h:panelGrid>
-			</div>
-                        
-                        <h:selectBooleanCheckbox id="displaypersonal"
-                                                 onclick="this.form.submit()"
-                                                 value="#{register.displaypersonal}"
-                                                 immediate="true"
-                                                 valueChangeListener="#{register.displayChanged}"/>
-                        <h:outputLabel for="displaypersonal" value="#{msg.displaypersonal}" />
-                        
-                        <h3>Pers&ouml;nliche Daten</h3>
-                        <div class="formblock">
-                            <h:panelGrid columns="2" rendered="#{register.displaypersonal}">
-                                <div>
-                                    <h:outputLabel value="#{msg.firstname} " for="firstname" />
-                                    <h:inputText id="firstname" value="#{register.player.firstName}" 
-                                                 required="false"
-                                                 label="#{msg.firstname}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputText>
-				</div>
-				<div>
-                                    <h:outputLabel value="#{msg.lastname} " for="lastname" />
-                                    <h:inputText id="lastname" value="#{register.player.lastName}" 
-                                                 required="false"
-                                                 label="#{msg.lastname}">
-                                        <f:validateLength minimum="3" />
-                                    </h:inputText>
-				</div>
-                                <div>
-                                    <h:outputLabel value="#{msg.dateofbirth} " for="dateofbirth" />
-                                    <h:inputText id="dateofbirth" value="#{register.player.dateOfBirth}" 
-                                                 required="false"
-                                                 validator="#{register.validateGeburtsdatum}" 
-                                                 label="#{msg.dateofbirth}">
-                                        <f:validateLength minimum="10" maximum="10"/>
-                                    </h:inputText>
-				</div>
-                                <div>
-                                    <h:outputLabel value="#{msg.sex} " for="sex" />
-                                    <h:selectOneListbox id="sex" label="#{msg.sex}">
-                                        <f:selectItem id="sex1" itemLabel="weiblich" itemValue="0" />
-                                        <f:selectItem id="sex2" itemLabel="m&auml;nnlich" itemValue="1" />
-                                    </h:selectOneListbox>
-				</div>
-                            </h:panelGrid>
-			</div>
-			<div id="buttons">
-                            <h:commandButton id="register" value="Registrieren" action="#{register.register}" accesskey="r" />
-			</div>
-                    </h:form>
-                </div>                
-            </ui:define>
-        </ui:composition>   
-    </h:body>
+        <ui:define name="accessibilitymenu">
+            <li><a href="#navigation" accesskey="1">#{msg.navigation}</a></li>
+            <li><a href="#main" accesskey="0">#{msg.registerform}</a></li>
+        </ui:define>
+
+        <ui:define name="menu">
+            <li><a href="#">#{msg.backtolounge}</a></li>
+        </ui:define>
+
+        <ui:define name="content">
+            <div id="main">
+                <h2> #{msg.register}</h2>
+
+                <p>#{msg.registerprompt}</p>
+
+                <h:form id="sendeRegistrierung">
+                    <h3><span xml:lang="en">Login</span> #{msg.data} </h3>
+
+                    <div class="formblock">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="#{msg.username} " for="username"/>
+                            <h:inputText id="username" value="#{register.player.name}"
+                                         required="true"
+                                         label="#{msg.username}">
+                                <f:validateRegex pattern="[a-zA-Z]*"/>
+                            </h:inputText>
+                            <h:outputLabel value="#{msg.password} " for="password"/>
+                            <h:inputSecret id="password" value="#{register.player.password}"
+                                           required="true"
+                                           label="#{msg.password}">
+                                <f:validateLength minimum="3"/>
+                                <f:validateRegex pattern="((?=.*\d)(?=.*[a-zA-Z]).{3,20})"/>
+                            </h:inputSecret>
+                        </h:panelGrid>
+                    </div>
+
+                    <h:selectBooleanCheckbox id="displaypersonal"
+                                             onclick="this.form.submit()"
+                                             value="#{register.displaypersonal}"
+                                             immediate="true"
+                                             valueChangeListener="#{register.displayChanged}"/>
+                    <h:outputLabel for="displaypersonal" value="#{msg.displaypersonal}"/>
+
+                    <h3>Pers&ouml;nliche Daten</h3>
+
+                    <div class="formblock">
+                        <h:panelGrid columns="2" rendered="#{register.displaypersonal}">
+                            <h:outputLabel value="#{msg.firstname} " for="firstname"/>
+                            <h:inputText id="firstname" value="#{register.player.firstName}"
+                                         required="true"
+                                         label="#{msg.firstname}">
+                                <f:validateRegex pattern="[a-zA-Z]*"/>
+                            </h:inputText>
+                            <h:outputLabel value="#{msg.lastname} " for="lastname"/>
+                            <h:inputText id="lastname" value="#{register.player.lastName}"
+                                         required="true"
+                                         label="#{msg.lastname}">
+                                <f:validateRegex pattern="[a-zA-Z]*"/>
+                            </h:inputText>
+                            <h:outputLabel value="#{msg.dateofbirth} " for="dateofbirth"/>
+                            <h:inputText id="dateofbirth" value="#{register.player.dateOfBirth}"
+                                         required="true"
+                                         validator="#{register.validateGeburtsdatum}"
+                                         label="#{msg.dateofbirth}">
+                                <f:validateLength minimum="10" maximum="10"/>
+                            </h:inputText>
+                            <h:outputLabel value="#{msg.sex} " for="sex"/>
+                            <h:selectOneMenu id="sex" label="#{msg.sex}" required="true">
+                                <f:selectItem id="sex1" itemLabel="weiblich" itemValue="0"/>
+                                <f:selectItem id="sex2" itemLabel="m&auml;nnlich" itemValue="1"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </div>
+                    <div id="buttons">
+                        <h:commandButton id="register" value="#{msg.register}" action="#{register.register}"
+                                         accesskey="r"/>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
 
 </html>
