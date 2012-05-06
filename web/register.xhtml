@@ -61,7 +61,7 @@
                                              valueChangeListener="#{register.displayChanged}"/>
                     <h:outputLabel for="displaypersonal" value="#{msg.displaypersonal}"/>
 
-                    <h3>Pers&ouml;nliche Daten</h3>
+                    <h3><h:outputText value="#{msg.personaldata}" rendered="#{register.displaypersonal}"/></h3>
 
                     <div class="formblock">
                         <h:panelGrid columns="2" rendered="#{register.displaypersonal}">
@@ -82,18 +82,17 @@
                                          required="true"
                                          validator="#{register.validateGeburtsdatum}"
                                          label="#{msg.dateofbirth}">
-                                <f:validateLength minimum="10" maximum="10"/>
                             </h:inputText>
                             <h:outputLabel value="#{msg.sex} " for="sex"/>
                             <h:selectOneMenu id="sex" label="#{msg.sex}" required="true">
-                                <f:selectItem id="sex1" itemLabel="weiblich" itemValue="0"/>
-                                <f:selectItem id="sex2" itemLabel="m&auml;nnlich" itemValue="1"/>
+                                <f:selectItem id="sex1" itemLabel="#{msg.female}" itemValue="f"/>
+                                <f:selectItem id="sex2" itemLabel="#{msg.male}" itemValue="m"/>
                             </h:selectOneMenu>
                         </h:panelGrid>
                     </div>
                     <div id="buttons">
                         <h:commandButton id="register" value="#{msg.register}" action="#{register.register}"
-                                         accesskey="r"/>
+                                         accesskey="r" alt="#{msg.register}"/>
                     </div>
                 </h:form>
             </div>

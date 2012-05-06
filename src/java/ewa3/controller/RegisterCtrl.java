@@ -4,12 +4,13 @@
  */
 package controller;
 
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -21,7 +22,7 @@ import model.Spieler;
  * @author bernhard
  */
 @ManagedBean(name="register")
-@SessionScoped
+@ViewScoped
 public class RegisterCtrl {
     @ManagedProperty(value="#{spieler}")
     Spieler player;
@@ -118,8 +119,11 @@ public class RegisterCtrl {
         
         if(!validDate)
         {
+            ResourceBundle b = ResourceBundle.getBundle("i18n", 
+                    FacesContext.getCurrentInstance().getViewRoot().getLocale());
+            String msgText = b.getString("dateofbirthvalidmsg");
             FacesMessage msg = new FacesMessage(
-            FacesMessage.SEVERITY_WARN,"Date format should be DD.MM.YYYY!", null);
+            FacesMessage.SEVERITY_WARN, msgText, null);
             throw new ValidatorException(msg);
         }
     }
