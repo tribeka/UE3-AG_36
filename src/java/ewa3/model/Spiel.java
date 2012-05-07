@@ -43,14 +43,14 @@ public class Spiel implements Serializable {
         this.reset();
     }
 
-    public final void reset() {
+    public final String reset() {
         Playarea = new SpielfeldImpl(Players);
         Round = 0;
         Over = false;
         Starttime = new Date().getTime();
         for (Spieler s : Players)
             LastDies.get(s).clear();
-
+        return "/table.xhtml";
     }
 
     public Boolean getOver() {

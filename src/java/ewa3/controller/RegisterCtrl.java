@@ -4,6 +4,7 @@
  */
 package controller;
 
+import java.io.Serializable;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +24,7 @@ import model.Spieler;
  */
 @ManagedBean(name="register")
 @ViewScoped
-public class RegisterCtrl {
+public class RegisterCtrl implements Serializable {
     @ManagedProperty(value="#{spieler}")
     Spieler player;
     @ManagedProperty(value = "true")

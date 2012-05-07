@@ -28,10 +28,8 @@
 
             <ui:define name="content">
                 <h:panelGroup id="info_area" layout="block">
-                    <h:form rendered="#{mygame.over}">
-                        <h:commandButton action="#{mygame.reset()}" value="Restart">
-                            <f:ajax execute="@all" render=":play_area :info_area :dicearea :infogegner"/>
-                        </h:commandButton>
+                    <h:form rendered="#{mygame.over}" id="resetform">
+                        <h:commandButton action="#{mygame.reset()}" value="Restart" />
                     </h:form>
 
                     <h2>#{msg.gameinfo}</h2>
@@ -85,7 +83,7 @@
                                          image="resources/img/wuerfel#{mygame.player1DiceRolls}.png"
                                          alt="#{msg.dice} #{msg.dice_number} #{mygame.player1DiceRolls}"
                                          title="#{msg.dice} #{msg.dice_number} #{mygame.player1DiceRolls}">
-                            <f:ajax event="action" render=":play_area :info_area :dicearea :infogegner"/>
+                            <f:ajax event="action" render=":play_area :info_area :resetform :dicearea :infogegner"/>
                         </h:commandButton>
                     </h:form>
                 </h:panelGroup>
