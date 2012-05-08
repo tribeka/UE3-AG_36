@@ -1,5 +1,7 @@
 package model;
 
+import controller.LoginCtrl;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.beans.*;
@@ -20,17 +22,24 @@ public class Spiel implements Serializable {
     private long Starttime;
     private Boolean Over;
 
-    @ManagedProperty(value="#{spieler}")
+    @ManagedProperty(value = "#{login}")
+    private LoginCtrl login;
+
     private Spieler humanplayer;
-    
-    public Spiel() {
-        // Players = Arrays.asList(new Spieler("Mario"), new Spieler("Computer"));
-        
+
+    public Spiel() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
-        this.humanplayer = (Spieler) context.getApplication().evaluateExpressionGet(context, "#{spieler}", Spieler.class);
-        
+        this.login = (LoginCtrl) context.getApplication().evaluateExpressionGet(context, "#{login}", LoginCtrl.class);
+
+        Spieler player = login.getPlayer();
+
+        if (player == null)
+            throw new Exception("Invalid user.");
+
+        this.humanplayer = player;
+
         Players = Arrays.asList(this.humanplayer, new Spieler("Computer"));
-        
+
         LastDies = new HashMap<Spieler, LinkedList<Integer>>();
 
         for (Spieler s : Players)
@@ -203,7 +212,7 @@ public class Spiel implements Serializable {
 
         return LastDies.get(s);
     }
-    
+
     public String getDestroy() {
         FacesContext f = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) f.getExternalContext().getSession(false);
