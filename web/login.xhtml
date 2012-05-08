@@ -29,8 +29,11 @@
         <ui:define name="content">
             <h:form>
                 <div class="formblock">      
-                    <mc:logincomp usernameValue="#{loginCtrl.name}" passwordValue="#{loginCtrl.password}" loginAction="#{loginCtrl.login}" />             
+                    <mc:logincomp usernameValue="#{login.username}" passwordValue="#{login.password}" loginAction="#{login.login}" />             
                 </div>
+                <p/>
+                <h:outputText value="#{msg.wrongpassword}" rendered="#{login.loginfailed}" styleClass="validationMessage" />
+                <h:messages style="color: red"/>
             </h:form>
         </ui:define>
         </ui:composition>			

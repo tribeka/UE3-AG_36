@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -23,11 +23,11 @@ import model.Spieler;
  * @author bernhard
  */
 @ManagedBean(name="register")
-@ViewScoped
+@SessionScoped
 public class RegisterCtrl implements Serializable {
     @ManagedProperty(value="#{spieler}")
-    Spieler player;
-    @ManagedProperty(value = "true")
+    private Spieler player;
+    @ManagedProperty(value = "false")
     private boolean displaypersonal;    
 
     /** Creates a new instance of RegisterCtrl */

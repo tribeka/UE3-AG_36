@@ -5,6 +5,7 @@ import javax.faces.bean.SessionScoped;
 import java.beans.*;
 import java.io.Serializable;
 import java.util.*;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -19,9 +20,17 @@ public class Spiel implements Serializable {
     private long Starttime;
     private Boolean Over;
 
+    @ManagedProperty(value="#{spieler}")
+    private Spieler humanplayer;
+    
     public Spiel() {
-        Players = Arrays.asList(new Spieler("Mario"), new Spieler("Computer"));
-
+        // Players = Arrays.asList(new Spieler("Mario"), new Spieler("Computer"));
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        this.humanplayer = (Spieler) context.getApplication().evaluateExpressionGet(context, "#{spieler}", Spieler.class);
+        
+        Players = Arrays.asList(this.humanplayer, new Spieler("Computer"));
+        
         LastDies = new HashMap<Spieler, LinkedList<Integer>>();
 
         for (Spieler s : Players)
@@ -200,6 +209,20 @@ public class Spiel implements Serializable {
         HttpSession session = (HttpSession) f.getExternalContext().getSession(false);
         session.invalidate();
         return "login.xhtml";
+    }
+
+    /**
+     * @return the humanplayer
+     */
+    public Spieler getHumanplayer() {
+        return humanplayer;
+    }
+
+    /**
+     * @param humanplayer the humanplayer to set
+     */
+    public void setHumanplayer(Spieler humanplayer) {
+        this.humanplayer = humanplayer;
     }
 
 }

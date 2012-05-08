@@ -18,9 +18,9 @@ and open the template in the editor.
         <composite:implementation>
           <h:panelGrid columns="1">  
             <h:outputLabel value="#{msg.username}" for="username"/>   
-            <h:inputText id="username" value="#{cc.attrs.usernameValue}" required="true" />
+            <h:inputText id="username" value="#{cc.attrs.usernameValue}" validator="#{login.validateUsername}" label="#{msg.username}" required="true" />
             <h:outputLabel value="#{msg.password}" for="password"/>
-            <h:inputSecret id="password" value="#{cc.attrs.passwordValue}" required="true" />
+            <h:inputSecret id="password" value="#{cc.attrs.passwordValue}" label="#{msg.password}" required="true" />
             <h:commandButton id="loginbutton" action="#{cc.attrs.loginAction}" value="#{msg.login}"/> 
           </h:panelGrid>
         </composite:implementation>
