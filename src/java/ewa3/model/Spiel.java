@@ -34,7 +34,7 @@ public class Spiel implements Serializable {
         Spieler player = login.getPlayer();
 
         if (player == null)
-            throw new Exception("Invalid user.");
+            player = new Spieler("Gast");
 
         this.humanplayer = player;
 
