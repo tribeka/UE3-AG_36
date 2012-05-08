@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html">
+
+        <composite:interface>
+            <composite:attribute name="usernameValue"/>
+            <composite:attribute name="passwordValue"/>
+            <composite:attribute name="loginAction"                                 
+    		method-signature="java.lang.String action()" />
+        </composite:interface>
+            
+        <composite:implementation>
+          <h:panelGrid columns="1">  
+            <h:outputLabel value="#{msg.username}" for="username"/>   
+            <h:inputText id="username" value="#{cc.attrs.usernameValue}" required="true" />
+            <h:outputLabel value="#{msg.password}" for="password"/>
+            <h:inputSecret id="password" value="#{cc.attrs.passwordValue}" required="true" />
+            <h:commandButton id="loginbutton" action="#{cc.attrs.loginAction}" value="#{msg.login}"/> 
+          </h:panelGrid>
+        </composite:implementation>
+    
+</html>
+                        
+           
+		
+ 
+		 
+	     
+ 

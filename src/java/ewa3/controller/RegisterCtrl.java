@@ -54,7 +54,7 @@ public class RegisterCtrl implements Serializable {
     // Register new player
     public String register()
     {
-        return "/index.xhtml";
+        return "/login.xhtml";
     }
     
     //Checks if the display checkbox changed

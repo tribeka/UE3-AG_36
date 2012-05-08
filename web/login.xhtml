@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xml:lang="de" lang="de"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents">
+
+    <h:head>
+        <title>Login Facelet</title>
+    </h:head>
+    
+    <h:body>
+        <ui:composition template="./Template.xhtml">
+        <ui:define name="title">
+                EWA Mensch &auml;rgere Dich nicht :: #{msg.loginprocess}
+        </ui:define> 
+        <ui:define name="accessibilitymenu">
+                <li><a href="#navigation" accesskey="1">#{msg.navigation}</a></li>
+                <li><a href="#main" accesskey="0">#{msg.loginform}</a></li>
+        </ui:define>
+        <ui:define name="menu" >
+            <li><h:link value="#{msg.register}" outcome="registration" /></li>
+        </ui:define>
+       
+        <ui:define name="content">
+            <h:form>
+                <div class="formblock">      
+                    <mc:logincomp usernameValue="#{loginCtrl.name}" passwordValue="#{loginCtrl.password}" loginAction="#{loginCtrl.login}" />             
+                </div>
+            </h:form>
+        </ui:define>
+        </ui:composition>			
+    </h:body>
+</html>
+                          
+                        
+                                    
+                   
+                        
+                
+                        
+          
+        
+
+ 
