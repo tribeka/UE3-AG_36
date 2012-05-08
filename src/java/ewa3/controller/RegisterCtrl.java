@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import model.Spieler;
+import model.SpielerDatenbank;
 
 /**
  *
@@ -27,9 +28,13 @@ import model.Spieler;
 public class RegisterCtrl implements Serializable {
     @ManagedProperty(value="#{spieler}")
     private Spieler player;
+    
     @ManagedProperty(value = "false")
     private boolean displaypersonal;    
 
+    @ManagedProperty(value="#{playerbase}")
+    private SpielerDatenbank playerbase;
+    
     /** Creates a new instance of RegisterCtrl */
     public RegisterCtrl() {
     }
@@ -54,6 +59,8 @@ public class RegisterCtrl implements Serializable {
     // Register new player
     public String register()
     {
+        // Add new Player to player Database
+        getPlayerbase().addPlayer(player);
         return "/login.xhtml";
     }
     
@@ -127,5 +134,19 @@ public class RegisterCtrl implements Serializable {
             FacesMessage.SEVERITY_WARN, msgText, null);
             throw new ValidatorException(msg);
         }
+    }
+
+    /**
+     * @return the playerbase
+     */
+    public SpielerDatenbank getPlayerbase() {
+        return playerbase;
+    }
+
+    /**
+     * @param playerbase the playerbase to set
+     */
+    public void setPlayerbase(SpielerDatenbank playerbase) {
+        this.playerbase = playerbase;
     }
 }

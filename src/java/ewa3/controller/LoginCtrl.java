@@ -15,6 +15,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import model.Spieler;
+import model.SpielerDatenbank;
 
 /**
  *
@@ -23,11 +24,13 @@ import model.Spieler;
 @ManagedBean(name="login")
 @SessionScoped
 public class LoginCtrl implements Serializable {
-    @ManagedProperty(value="#{spieler}")
+    @ManagedProperty(value="#{currentplayer}")
     private Spieler player;
     @ManagedProperty(value = "false")
     private boolean loginfailed;
-    
+    @ManagedProperty(value="#{playerbase}")
+    private SpielerDatenbank playerbase;
+        
     private String password;
     private String username;
     
@@ -51,8 +54,9 @@ public class LoginCtrl implements Serializable {
     
     
     public String login() {
-        if (this.getPassword().equals(getPlayer().getPassword()))
+        if (playerbase.getPlayer(username).getPassword().equals(password))
         {    
+            this.player = playerbase.getPlayer(username);
             loginfailed = false;
             return "/table.xhtml";
         }    
@@ -69,8 +73,7 @@ public class LoginCtrl implements Serializable {
         loginfailed = false;
         this.setUsername((String)value);
 
-        if(!username.equals(player.getName()))
-        {
+        if (playerbase.getPlayer(username) == null) {
             ResourceBundle b = ResourceBundle.getBundle("i18n", 
                     FacesContext.getCurrentInstance().getViewRoot().getLocale());
             String msgText = b.getString("wrongusername");
@@ -120,5 +123,19 @@ public class LoginCtrl implements Serializable {
      */
     public void setPlayer(Spieler player) {
         this.player = player;
+    }
+
+    /**
+     * @return the playerbase
+     */
+    public SpielerDatenbank getPlayerbase() {
+        return playerbase;
+    }
+
+    /**
+     * @param playerbase the playerbase to set
+     */
+    public void setPlayerbase(SpielerDatenbank playerbase) {
+        this.playerbase = playerbase;
     }
 }

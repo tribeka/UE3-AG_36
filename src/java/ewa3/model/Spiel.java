@@ -234,4 +234,18 @@ public class Spiel implements Serializable {
         this.humanplayer = humanplayer;
     }
 
+    /**
+     * @return the login
+     */
+    public LoginCtrl getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(LoginCtrl login) {
+        this.login = login;
+    }
+
 }
